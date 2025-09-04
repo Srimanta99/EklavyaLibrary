@@ -1,12 +1,10 @@
 package com.sm.mylibrary.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
-
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.sm.mylibrary.R
 import com.sm.mylibrary.databinding.FragmentProfileBinding
@@ -14,7 +12,6 @@ import com.sm.mylibrary.model.login.LoginResponse
 import com.sm.mylibrary.utils.Constants
 import com.sm.mylibrary.utils.SheardPreferenceViewModel
 import com.sm.mylibrary.utils.ShowFullScreenImageDialog
-import com.sm.mylibrary.viewmodel.FragmentHomeViewModel
 import com.sm.mylibrary.viewmodel.FragmentProfileViewModel
 import com.squareup.picasso.Picasso
 
@@ -58,6 +55,7 @@ class ProfileFragment : Fragment() {
 
 
         if (loginResponse?.userDetail?.photo!=null) {
+
             Picasso.get()
                 .load(loginResponse?.userDetail?.profile_path + loginResponse?.userDetail?.photo)
                 .placeholder(R.drawable.placeholder) // optional
@@ -68,6 +66,8 @@ class ProfileFragment : Fragment() {
 
 
         if (loginResponse?.userDetail?.photo1!=null) {
+            fragmentProfileBinding?.tvKyc?.visibility = View.VISIBLE
+            fragmentProfileBinding?.cardFront?.visibility = View.VISIBLE
             Picasso.get()
                 .load(loginResponse?.userDetail?.aadhar_path + loginResponse?.userDetail?.photo1)
                 .placeholder(R.drawable.placeholder) // optional
@@ -80,6 +80,8 @@ class ProfileFragment : Fragment() {
         }
 
         if (loginResponse?.userDetail?.photo2!=null) {
+            fragmentProfileBinding?.tvKyc?.visibility = View.VISIBLE
+            fragmentProfileBinding?.cardBack?.visibility = View.VISIBLE
             Picasso.get()
                 .load(loginResponse?.userDetail?.aadhar_path + loginResponse?.userDetail?.photo2)
                 .placeholder(R.drawable.placeholder) // optional

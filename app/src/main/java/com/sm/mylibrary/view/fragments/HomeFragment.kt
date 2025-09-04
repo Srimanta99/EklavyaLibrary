@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
@@ -27,12 +27,10 @@ import com.sm.mylibrary.databinding.FragmentHomeBinding
 import com.sm.mylibrary.model.login.LoginResponse
 import com.sm.mylibrary.utils.PermissionHelper
 import com.sm.mylibrary.utils.PermissionViewModel
-import com.sm.mylibrary.utils.ShowFullScreenImageDialog
 import com.sm.mylibrary.utils.Utils
 import com.sm.mylibrary.view.ApplyLeaveActivity
 import com.sm.mylibrary.view.AttendenceActivity
 import com.sm.mylibrary.view.MainActivity
-import com.sm.mylibrary.viewmodel.ActivityMainViewModel
 import com.sm.mylibrary.viewmodel.FragmentHomeViewModel
 import com.squareup.picasso.Picasso
 import java.io.File
@@ -129,8 +127,6 @@ class HomeFragment : Fragment() {
                 bannerlist.add(it[i].image_path+it[i].photo)
                 imageList.add(SlideModel(it[i].image_path+it[i].photo, it[i].url))
             }
-
-
 
 
            // imageList.add(SlideModel("https://picsum.photos/800/400?random=1", "First Image"))
