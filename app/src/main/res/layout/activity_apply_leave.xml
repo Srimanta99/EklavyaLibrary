@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#142551"
+    tools:context=".view.ApplyLeaveActivity">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/back"></ImageView>
+
+
+    <TextView
+        android:id="@+id/tv_apply_leave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="@dimen/_13sdp"
+        android:text="Apply Leave"></TextView>
+
+
+    <TextView
+        android:id="@+id/tv_leave_start"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+         android:layout_marginLeft="@dimen/_20sdp"
+        android:background="@drawable/rounded_with_blue_color"
+        android:layout_marginTop="@dimen/_35sdp"
+        android:hint="Select Leave Start Date"
+        android:textColorHint="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/_15sdp"
+        android:textSize="@dimen/_9sdp"
+        android:paddingRight="@dimen/_15sdp"
+        android:textColor="@color/white"
+          android:drawableRight="@drawable/calender"
+         app:layout_constraintTop_toBottomOf="@+id/tv_apply_leave"></TextView>
+
+
+    <TextView
+        android:id="@+id/tv_leave_end"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:background="@drawable/rounded_with_blue_color"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:paddingLeft="@dimen/_15sdp"
+        android:paddingRight="@dimen/_15sdp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_9sdp"
+        android:hint="Select Leave End Date"
+        android:textColorHint="@color/white"
+        android:gravity="center_vertical"
+        android:drawableRight="@drawable/calender"
+        app:layout_constraintTop_toBottomOf="@+id/tv_leave_start"></TextView>
+
+
+      <EditText
+          android:id="@+id/et_reason"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/_100sdp"
+          android:layout_marginRight="@dimen/_20sdp"
+          android:layout_marginTop="@dimen/_20sdp"
+          app:layout_constraintTop_toBottomOf="@+id/tv_leave_end"
+          android:padding="@dimen/_15sdp"
+          android:hint="Enter Leave Reason"
+          android:textColor="@color/white"
+          android:textSize="@dimen/_10sdp"
+          android:textColorHint="@color/white"
+          android:gravity="top"
+          android:background="@drawable/rectangle_corner_with_blue_color"
+          android:layout_marginLeft="@dimen/_20sdp"></EditText>
+    
+
+    <Button
+        android:id="@+id/btn_apply_leave"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_34sdp"
+        android:text="Apply Leave"
+        android:textColor="@android:color/white"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_reason"
+        android:background="@drawable/rounded_with_blue_color"
+        android:layout_marginTop="@dimen/_30sdp" ></Button>
+</androidx.constraintlayout.widget.ConstraintLayout>

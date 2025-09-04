@@ -1,0 +1,315 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.sm.mylibrary.viewmodel.ActivityMainViewModel"/>
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Main Content -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#142551" >
+
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:text="User name"
+                    android:textSize="@dimen/_13sdp"
+                    android:textStyle="bold"
+
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:background="@drawable/bell"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_gravity="right"></ImageView>
+
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <!-- Custom Side Menu -->
+        <LinearLayout
+            android:id="@+id/customDrawer"
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#142551"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_image_circular"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@mipmap/app_icon_image"/>
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@id/user_image_circular"
+                    android:layout_marginLeft="@dimen/_12sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="@dimen/_35sdp"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_13sdp"
+                    android:textColor="@color/white"
+                    android:text="Sumit Raj"></TextView>
+
+                <TextView
+                    android:id="@+id/user_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@id/user_image_circular"
+                    android:layout_marginLeft="@dimen/_12sdp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintTop_toBottomOf="@id/user_name"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:text="sumit@gmail.com"></TextView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:onClick="@{() -> viewModel.onMenuClicked(0)}"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/home"></ImageView>
+            <TextView
+                android:id="@+id/nav_home"
+                android:text="Dashboard"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_17sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:onClick="@{() -> viewModel.onMenuClicked(0)}"
+               android:gravity="center_vertical" />
+            </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:onClick="@{() -> viewModel.onMenuClicked(1)}"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/sidemenu_user"></ImageView>
+
+
+            <TextView
+                android:id="@+id/nav_profile"
+                android:text="Profile"
+                android:textSize="@dimen/_12sdp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/_17sdp"
+                android:textColor="@color/white"
+                android:onClick="@{() -> viewModel.onMenuClicked(1)}"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:onClick="@{() -> viewModel.onMenuClicked(2)}"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/sidemenu_attendence"></ImageView>
+
+            <TextView
+                android:id="@+id/nav_applypunchin"
+                android:text="Apply Punch In"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="@dimen/_12sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/_17sdp"
+                android:onClick="@{() -> viewModel.onMenuClicked(2)}"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:onClick="@{() -> viewModel.onMenuClicked(3)}"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/sidemenu_attendence"></ImageView>
+
+            <TextView
+                android:id="@+id/nav_applypunchout"
+                android:text="Apply Punch Out"
+                android:textSize="@dimen/_12sdp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/_17sdp"
+                android:onClick="@{() -> viewModel.onMenuClicked(3)}"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:onClick="@{() -> viewModel.onMenuClicked(4)}"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/sidemenu_leave"></ImageView>
+
+            <TextView
+                android:id="@+id/nav_applyleave"
+                android:text="APPLY Leave"
+                android:textSize="@dimen/_12sdp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/_17sdp"
+                android:onClick="@{() -> viewModel.onMenuClicked(4)}"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:onClick="@{() -> viewModel.onMenuClicked(5)}"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/sidemenu_leave"></ImageView>
+
+
+            <TextView
+                android:id="@+id/nav_manageleave"
+                android:text="Manage Leave"
+                android:textSize="@dimen/_12sdp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/_17sdp"
+                android:textColor="@color/white"
+                android:onClick="@{() -> viewModel.onMenuClicked(5)}"
+                 />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:onClick="@{() -> viewModel.onMenuClicked(6)}"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/sidemenu_logout"></ImageView>
+
+
+            <TextView
+                android:id="@+id/nav_logout"
+                android:text="Logout"
+                android:textSize="@dimen/_12sdp"
+                android:clickable="true"
+                android:focusable="true"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/_17sdp"
+                android:textColor="@color/white"
+                android:onClick="@{() -> viewModel.onMenuClicked(6)}"
+                 />
+        </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

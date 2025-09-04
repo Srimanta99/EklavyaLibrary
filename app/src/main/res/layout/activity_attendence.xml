@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#142551"
+    tools:context=".view.AttendenceActivity">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@drawable/back"></ImageView>
+
+
+    <TextView
+        android:id="@+id/tv_apply_attendance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_35sdp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="@dimen/_13sdp"
+        android:text="Apply Attendance"></TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_90sdp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_45sdp"
+        app:layout_constraintTop_toBottomOf="@id/tv_apply_attendance"
+        android:weightSum="2">
+
+
+        <RelativeLayout
+            android:id="@+id/rl_apply_punchin"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:background="@drawable/rounded_corner_button_with_no_broder">
+
+
+            <ImageView
+                android:id="@+id/img_apply_punchout"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/punch_in">
+            </ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="Punch In"
+                android:textSize="@dimen/_11sdp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:layout_below="@+id/img_apply_punchout"></TextView>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_apply_punchout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:background="@drawable/rounded_corner_button_with_no_broder">
+
+
+            <ImageView
+                android:id="@+id/img_apply_punchin"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/punch_out">
+            </ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="Punch Out"
+                android:textSize="@dimen/_11sdp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:layout_below="@+id/img_apply_punchin"></TextView>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
