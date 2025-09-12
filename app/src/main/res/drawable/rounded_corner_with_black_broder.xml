@@ -1,0 +1,16 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Button background color -->
+    <solid android:color="#215D9E"/> <!-- Blue -->
+
+    <!-- Rounded corners -->
+    <corners android:radius="@dimen/_5sdp"/> <!-- Adjust roundness -->
+
+
+    <padding
+        android:left="12dp"
+        android:top="8dp"
+        android:right="12dp"
+        android:bottom="8dp"/>
+</shape>

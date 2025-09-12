@@ -41,6 +41,15 @@ data class UserDetail (
    @SerializedName("types"        ) var types          : String? = null,
   @SerializedName("seat_no"        ) var seat_no       : String? = null,
   @SerializedName("seat_timing"    ) var seat_timing   : String? = null,
-  @SerializedName("vari_seat"      ) var vari_seat     : String? = null
+  @SerializedName("vari_seat"      ) var vari_seat     : String? = null,
+  @SerializedName("libraryname"    )    var libraryname     :    String? = null,
+  @SerializedName("libraryaddress" )    var libraryaddress     :    String? = null,
+  @SerializedName("refid"          )    var refid     : Int? = null,
+  @SerializedName("exp_type"       )    var exp_type     :    String? = null,
+  @SerializedName("amount"         )    var amount     :    String? = null,
+  @SerializedName("ref_date"       )    var ref_date     :    String? = null,
+  @SerializedName("refstatus"      )    var refstatus     :    String? = null,
+  @SerializedName("detail"         )    var detail     :    String? = null,
+  @SerializedName("paid_by"        )    var paid_by     :    String? = null,
 
-)
+  )

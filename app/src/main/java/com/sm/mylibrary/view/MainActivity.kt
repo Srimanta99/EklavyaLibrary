@@ -1,16 +1,14 @@
 package com.sm.mylibrary.view
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.sm.mylibrary.R
 import com.sm.mylibrary.databinding.ActivityMainBinding
@@ -19,8 +17,9 @@ import com.sm.mylibrary.utils.Constants
 import com.sm.mylibrary.utils.SheardPreferenceViewModel
 import com.sm.mylibrary.view.fragments.HomeFragment
 import com.sm.mylibrary.view.fragments.ProfileFragment
+import com.sm.mylibrary.view.fragments.RefundFragment
 import com.sm.mylibrary.viewmodel.ActivityMainViewModel
-import com.squareup.picasso.Picasso
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -95,10 +94,11 @@ class MainActivity : AppCompatActivity() {
                 5 ->{
                     Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
                 }
-//                6 ->{
-//                    Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
-//                }
-                6 -> {
+                6 ->{
+                   // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
+                    loadFragment(RefundFragment())
+                }
+                7 -> {
                     Toast.makeText(this, "Successfully Logged out", Toast.LENGTH_SHORT).show()
                     sheardPreferenceViewModel.clearPreferenceData()
                     sheardPreferenceViewModel.saveData(Constants.IS_LOGIN,"")
@@ -118,16 +118,37 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding.userEmail.setText(loginResponse?.userDetail?.email)
         activityMainBinding.userName.setText(loginResponse?.userDetail?.name)
 
-        if (loginResponse?.userDetail?.photo!=null) {
-            Picasso.get()
-                .load(loginResponse?.userDetail?.profile_path + loginResponse?.userDetail?.photo)
+        if (sheardPreferenceViewModel.loadData(Constants.PROFILE_IMAGE_PATH)!="") {
+
+            val profile = sheardPreferenceViewModel.loadData(Constants.PROFILE_IMAGE_PATH)
+
+            Glide.with(this)
+                .load(profile)
+                // .load(loginResponse?.userDetail?.profile_path + loginResponse?.userDetail?.photo)
                 .placeholder(R.drawable.user_profile) // optional
                 .error(R.drawable.user_profile)       // optional
                 .into(activityMainBinding.userImageCircular)
         }
 
+      /*  if (loginResponse?.userDetail?.photo!=null) {
+            Picasso.get()
+                .load(loginResponse?.userDetail?.profile_path + loginResponse?.userDetail?.photo)
+                .placeholder(R.drawable.user_profile) // optional
+                .error(R.drawable.user_profile)       // optional
+                .into(activityMainBinding.userImageCircular)
+        }*/
+
       //  activityMainBinding.tvUsername.setText("Welcome "+ sheardPreferenceViewModel.loadData(Constants.USERNAME))
     }
+
+     fun updateProfileImage(url :String){
+         Glide.with(this)
+             .load(url)
+             // .load(loginResponse?.userDetail?.profile_path + loginResponse?.userDetail?.photo)
+             .placeholder(R.drawable.user_profile) // optional
+             .error(R.drawable.user_profile)       // optional
+             .into(activityMainBinding.userImageCircular)
+     }
 
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()

@@ -78,10 +78,14 @@ dependencies {
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
    // implementation ("com.github.bumptech.glide:glide:4.16.0")
-    implementation ("com.squareup.picasso:picasso:2.8")
+  //  implementation ("com.squareup.picasso:picasso:2.8")
     //implementation ("com.github.smarteist:autoimageslider:1.4.0")
     //implementation ("com.github.smarteist:autoimageslider:1.3.9")
    // implementation ("com.github.bumptech.glide:glide:4.11.0")
+
+
+    implementation ("com.github.bumptech.glide:glide:4.16.0") // latest stable
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 
 
 

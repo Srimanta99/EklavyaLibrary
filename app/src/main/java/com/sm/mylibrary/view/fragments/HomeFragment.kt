@@ -3,11 +3,13 @@ package com.sm.mylibrary.view.fragments
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,20 +21,22 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.sm.mylibrary.R
 import com.sm.mylibrary.databinding.FragmentHomeBinding
 import com.sm.mylibrary.model.login.LoginResponse
+import com.sm.mylibrary.utils.Constants
 import com.sm.mylibrary.utils.PermissionHelper
 import com.sm.mylibrary.utils.PermissionViewModel
+import com.sm.mylibrary.utils.SheardPreferenceViewModel
 import com.sm.mylibrary.utils.Utils
 import com.sm.mylibrary.view.ApplyLeaveActivity
 import com.sm.mylibrary.view.AttendenceActivity
 import com.sm.mylibrary.view.MainActivity
 import com.sm.mylibrary.viewmodel.FragmentHomeViewModel
-import com.squareup.picasso.Picasso
 import java.io.File
 
 
@@ -52,6 +56,20 @@ class HomeFragment : Fragment() {
 
     private var imageUri: Uri? = null
     var baSe64ofProfileImage: String? = null
+    var baSe64ofAadharFrontImage: String? = null
+    var baSe64ofAadharBackImage: String? = null
+
+    var loginResponse : LoginResponse? = null
+    val sheardPreferenceViewModel = SheardPreferenceViewModel()
+
+    private lateinit var progressDialog: ProgressDialog
+
+    val requestDataProfileImageUpload = HashMap<String, String>()
+
+    val requestDataAadharfrontImageUpload = HashMap<String, String>()
+    val requestDataAadharbackImageUpload = HashMap<String, String>()
+
+
 
     // Launchers for gallery and camera
     private val pickImageLauncher =
@@ -63,14 +81,47 @@ class HomeFragment : Fragment() {
                     baSe64ofProfileImage = fragmentHomeBinding?.imgProfile?.let { it1 ->
                         Utils.imageViewToBase64(it1)
                     }
+                    Log.d("BASE64", baSe64ofProfileImage ?: "Conversion failed")
+                    requestDataProfileImageUpload["profile"] = Constants.BASE64CONSTANT+ baSe64ofProfileImage.toString()
+                    requestDataProfileImageUpload["filetype"] = "profile"
+                    requestDataProfileImageUpload["uid"] = loginResponse?.userId.toString()
+                    fragmentHomeViewModel.uploadProfileImage(requestDataProfileImageUpload)
+
+                    Log.d("Base64withconst", Constants.BASE64CONSTANT+ baSe64ofProfileImage.toString() ?: "Conversion failed")
                 }
                 if (aadharFrontSideClick) {
                    fragmentHomeBinding?.tvFrontImagename?.visibility = View.VISIBLE
+                    fragmentHomeBinding?.imgAadharFront?.visibility = View.VISIBLE
+                    fragmentHomeBinding?.imgAadharFront?.setImageURI(it)
+                    baSe64ofAadharFrontImage = fragmentHomeBinding?.imgAadharFront?.let { it1 ->
+                        Utils.imageViewToBase64(it1)
+                    }
+                  // Log.d("Base64", baSe64ofAadharFrontImage ?: "Conversion failed")
+                    requestDataAadharfrontImageUpload["aadharfront"] = Constants.BASE64CONSTANT+baSe64ofAadharFrontImage.toString()
+                    requestDataAadharfrontImageUpload["filetype"] = "aadhar"
+                    requestDataAadharfrontImageUpload["uid"] = loginResponse?.userId.toString()
+
+                    fragmentHomeViewModel.uploadAadharImage(requestDataAadharfrontImageUpload)
+
                     fragmentHomeBinding?.tvFrontImagename?.text = Utils.getFileNameFromUri(requireContext(),imageUri!!)
 
                 }
                 if (aadharBackSideClick) {
                     fragmentHomeBinding?.tvBackImagename?.visibility = View.VISIBLE
+                    fragmentHomeBinding?.imgAadharBack?.visibility = View.VISIBLE
+                    fragmentHomeBinding?.imgAadharBack?.setImageURI(it)
+                    baSe64ofAadharBackImage = fragmentHomeBinding?.imgAadharBack?.let { it1 ->
+                        Utils.imageViewToBase64(it1)
+                    }
+                   // Log.d("Base64", baSe64ofAadharBackImage ?: "Conversion failed")
+
+                    requestDataAadharbackImageUpload["aadharback"] =Constants.BASE64CONSTANT+ baSe64ofAadharBackImage.toString()
+                    requestDataAadharbackImageUpload["filetype"] = "aadhar"
+                    requestDataAadharbackImageUpload["uid"] = loginResponse?.userId.toString()
+
+                    fragmentHomeViewModel.uploadAadharImage(requestDataAadharbackImageUpload)
+
+
                     fragmentHomeBinding?.tvBackImagename?.text = Utils.getFileNameFromUri(requireContext(),imageUri!!)
                 }
 
@@ -88,14 +139,63 @@ class HomeFragment : Fragment() {
                         baSe64ofProfileImage = fragmentHomeBinding?.imgProfile?.let { it1 ->
                             Utils.imageViewToBase64(it1)
                         }
+                        requestDataProfileImageUpload["profile"] = Constants.BASE64CONSTANT+baSe64ofProfileImage.toString()
+                        requestDataProfileImageUpload["filetype"] = "profile"
+                        requestDataProfileImageUpload["uid"] = loginResponse?.userId.toString()
+
+                        //Log.d("uid", loginResponse?.userId.toString() ?: "Conversion failed")
+
+
+                        fragmentHomeViewModel.uploadProfileImage(requestDataProfileImageUpload)
                     }
                     if (aadharFrontSideClick) {
                         fragmentHomeBinding?.tvFrontImagename?.visibility = View.VISIBLE
                         fragmentHomeBinding?.tvFrontImagename?.text = Utils.getFileNameFromUri(requireContext(),imageUri!!)
 
+                        fragmentHomeBinding?.imgAadharFront?.visibility = View.VISIBLE
+                        fragmentHomeBinding?.imgAadharFront?.setImageURI(it)
+                        baSe64ofAadharFrontImage = fragmentHomeBinding?.imgAadharFront?.let { it1 ->
+                            Utils.imageViewToBase64(it1)
+                        }
+
+                        requestDataAadharfrontImageUpload["aadharfront"] = Constants.BASE64CONSTANT+baSe64ofAadharFrontImage.toString()
+                        requestDataAadharfrontImageUpload["filetype"] = "aadhar"
+                        requestDataAadharfrontImageUpload["uid"] = loginResponse?.userId.toString()
+
+                        fragmentHomeViewModel.uploadAadharImage(requestDataAadharfrontImageUpload)
+
+
+                       //  Log.d("Base64", baSe64ofAadharFrontImage ?: "Conversion failed")
+
+
+                        /*activity?.lifecycleScope?.launch {
+                            // switch to background thread
+                            val base64 = withContext(Dispatchers.IO) {
+                                Utils.uriToBase64(requireContext(),imageUri!!)
+                            }
+
+                            // back on Main thread here
+                            Toast.makeText(activity, base64 ?: "Conversion failed", Toast.LENGTH_SHORT).show()
+                           // Log.d("Base64", base64 ?: "Conversion failed")
+                        }*/
                     }
                     if (aadharBackSideClick) {
                         fragmentHomeBinding?.tvBackImagename?.visibility = View.VISIBLE
+                        fragmentHomeBinding?.imgAadharBack?.visibility = View.VISIBLE
+                        fragmentHomeBinding?.imgAadharBack?.setImageURI(it)
+                        baSe64ofAadharBackImage = fragmentHomeBinding?.imgAadharBack?.let { it1 ->
+                            Utils.imageViewToBase64(it1)
+                        }
+                       // Log.d("Base64", baSe64ofAadharBackImage ?: "Conversion failed")
+
+                        requestDataAadharbackImageUpload["aadharback"] = Constants.BASE64CONSTANT+baSe64ofAadharBackImage.toString()
+                        requestDataAadharbackImageUpload["filetype"] = "aadhar"
+                        requestDataAadharbackImageUpload["uid"] = loginResponse?.userId.toString()
+
+                        fragmentHomeViewModel.uploadAadharImage(requestDataAadharbackImageUpload)
+                       // Log.d("Base64", baSe64ofAadharBackImage ?: "Conversion failed")
+
+
                         fragmentHomeBinding?.tvBackImagename?.text = Utils.getFileNameFromUri(requireContext(),imageUri!!)
                     }
                 }
@@ -150,6 +250,7 @@ class HomeFragment : Fragment() {
 
                 }
             })
+
         }
 
 
@@ -166,14 +267,14 @@ class HomeFragment : Fragment() {
         fragmentHomeBinding?.tvStdId?.text = "STD ID:  " + loginResponse?.userDetail?.ecode
         fragmentHomeBinding?.tvValidDate?.text =   loginResponse?.userDetail?.lastDate
 
+        fragmentHomeBinding?.tvLocationStudent?.text = loginResponse?.userDetail?.libraryaddress
+        fragmentHomeBinding?.tvEklavyaStudyCenter?.text = loginResponse?.userDetail?.libraryname
+        fragmentHomeBinding?.tvStatusValue?.text = loginResponse?.userDetail?.status
+        fragmentHomeBinding?.tvWaitingStatus?.text = loginResponse?.message
+        fragmentHomeBinding?.tvlocation?.text  = loginResponse?.userDetail?.libraryaddress
 
-   if (loginResponse?.userDetail?.photo!=null) {
-       Picasso.get()
-           .load(loginResponse?.userDetail?.profile_path + loginResponse?.userDetail?.photo)
-           .placeholder(R.drawable.placeholder) // optional
-           .error(R.drawable.placeholder)       // optional
-           .into(fragmentHomeBinding?.imgProfile!!)
-      }
+
+
 
     }
 
@@ -194,6 +295,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val mainActivity = activity as? MainActivity
+        loginResponse = mainActivity?.loginResponse
         setValue(mainActivity?.loginResponse)
 
         fragmentHomeBinding?.rlApplyLeave?.setOnClickListener {
@@ -225,6 +327,70 @@ class HomeFragment : Fragment() {
             isImageprofile = false
             aadharBackSideClick = true
             checkStoragePermissionAndShowDialog()
+        }
+
+        progressDialog = ProgressDialog(activity).apply {
+            setMessage("Loading...")
+            setCancelable(false)
+        }
+
+        fragmentHomeViewModel.loading.observe(activity) { isLoading ->
+            if (isLoading) progressDialog.show() else progressDialog.dismiss()
+        }
+        fragmentHomeViewModel.error.observe(activity) { errorMessage ->
+            Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show()
+        }
+        fragmentHomeViewModel.message.observe(activity) { message ->
+            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        }
+
+        fragmentHomeViewModel?.imageUploadResponse?.observe(activity) {
+            Log.d("imageUploadResponse", it.toString())
+            if (isImageprofile) {
+                sheardPreferenceViewModel.saveData(Constants.PROFILE_IMAGE_PATH, loginResponse?.userDetail?.profile_path + it?.image_name)
+                (requireActivity() as MainActivity).updateProfileImage(loginResponse?.userDetail?.profile_path + it?.image_name)
+
+            }else if (aadharFrontSideClick)
+              sheardPreferenceViewModel.saveData(Constants.AADHAR_FRONT_IMAGE_PATH,loginResponse?.userDetail?.aadhar_path + it?.image_name)
+
+           else if (aadharBackSideClick)
+                sheardPreferenceViewModel.saveData(Constants.AADHAR_BACK_IMAGE_PATH,loginResponse?.userDetail?.aadhar_path + it?.image_name)
+
+
+        }
+
+
+
+        if (sheardPreferenceViewModel.loadData(Constants.PROFILE_IMAGE_PATH)!="" ) {
+            val profile = sheardPreferenceViewModel.loadData(Constants.PROFILE_IMAGE_PATH)
+
+            Glide.with(this)
+                .load(profile)
+                .placeholder(R.drawable.placeholder) // optional
+                .error(R.drawable.placeholder)       // optional
+                .into(fragmentHomeBinding?.imgProfile!!)
+        }
+
+
+        if (sheardPreferenceViewModel.loadData(Constants.AADHAR_FRONT_IMAGE_PATH)!="") {
+
+            val imagePathFront = sheardPreferenceViewModel.loadData(Constants.AADHAR_FRONT_IMAGE_PATH)
+            Glide.with(this)
+                .load(imagePathFront)
+                .placeholder(R.drawable.placeholder) // optional
+                .error(R.drawable.placeholder)       // optional
+                .into(fragmentHomeBinding?.imgAadharFront!!)
+        }
+
+        if (sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH)!="") {
+
+            val imagePathBack = sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH)
+
+            Glide.with(this)
+                .load(imagePathBack)
+                .placeholder(R.drawable.placeholder) // optional
+                .error(R.drawable.placeholder)       // optional
+                .into(fragmentHomeBinding?.imgAadharBack!!)
         }
 
         /*fragmentHomeBinding?.btnUploadImage?.setOnClickListener {

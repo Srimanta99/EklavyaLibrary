@@ -4,8 +4,8 @@ import android.app.Dialog
 import android.content.Context
 import android.view.Window
 import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.sm.mylibrary.R
-import com.squareup.picasso.Picasso
 
 
 object ShowFullScreenImageDialog {
@@ -19,7 +19,7 @@ object ShowFullScreenImageDialog {
          val imagecross = dialog.findViewById<ImageView>(R.id.img_cross)
 
         // load image (Glide/Picasso/Coil)
-        Picasso.get()
+        Glide.with(context)
             .load(imageUrl)
             .into(imageView)
 

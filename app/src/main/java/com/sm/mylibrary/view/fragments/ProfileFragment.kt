@@ -1,10 +1,12 @@
 package com.sm.mylibrary.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.sm.mylibrary.R
 import com.sm.mylibrary.databinding.FragmentProfileBinding
@@ -13,7 +15,6 @@ import com.sm.mylibrary.utils.Constants
 import com.sm.mylibrary.utils.SheardPreferenceViewModel
 import com.sm.mylibrary.utils.ShowFullScreenImageDialog
 import com.sm.mylibrary.viewmodel.FragmentProfileViewModel
-import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment() {
 
@@ -41,6 +42,56 @@ class ProfileFragment : Fragment() {
         loginResponse = Gson().fromJson(loginData, LoginResponse::class.java)
 
         setvalues()
+        if (sheardPreferenceViewModel.loadData(Constants.PROFILE_IMAGE_PATH)!="") {
+
+            val profile = sheardPreferenceViewModel.loadData(Constants.PROFILE_IMAGE_PATH)
+            Log.d("profile",profile)
+            Glide.with(this)
+                .load(profile)
+                // .load(loginResponse?.userDetail?.profile_path + loginResponse?.userDetail?.photo)
+                .placeholder(R.drawable.user_profile) // optional
+                .error(R.drawable.user_profile)       // optional
+                .into(fragmentProfileBinding?.profileImage!!)
+        }
+
+
+
+        if (sheardPreferenceViewModel.loadData(Constants.AADHAR_FRONT_IMAGE_PATH)!="") {
+            Log.d("addharimagepath",sheardPreferenceViewModel.loadData(Constants.AADHAR_FRONT_IMAGE_PATH))
+
+            val imagePathFront = sheardPreferenceViewModel.loadData(Constants.AADHAR_FRONT_IMAGE_PATH)
+
+            fragmentProfileBinding?.tvKyc?.visibility = View.VISIBLE
+            fragmentProfileBinding?.cardFront?.visibility = View.VISIBLE
+            Glide.with(this)
+                .load(imagePathFront)
+                //.load(loginResponse?.userDetail?.aadhar_path + loginResponse?.userDetail?.photo1)
+                .placeholder(R.drawable.placeholder) // optional
+                .error(R.drawable.placeholder)       // optional
+                .into(fragmentProfileBinding?.imageAdadharFrontside!!)
+
+            fragmentProfileBinding?.imageAdadharFrontside?.setOnClickListener {
+                ShowFullScreenImageDialog.showFullScreenDialog(requireContext(), imagePathFront)
+            }
+        }
+
+        if (sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH)!="") {
+            Log.d("addharimagepath back",sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH))
+            val imagePathBack = sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH)
+
+            fragmentProfileBinding?.tvKyc?.visibility = View.VISIBLE
+            fragmentProfileBinding?.cardBack?.visibility = View.VISIBLE
+            Glide.with(this)
+                .load(imagePathBack)
+                // .load(loginResponse?.userDetail?.aadhar_path + loginResponse?.userDetail?.photo2)
+                .placeholder(R.drawable.placeholder) // optional
+                .error(R.drawable.placeholder)
+                // optional
+                .into(fragmentProfileBinding?.imageAdadharBackside!!)
+            fragmentProfileBinding?.imageAdadharBackside?.setOnClickListener {
+                ShowFullScreenImageDialog.showFullScreenDialog(requireContext(), imagePathBack)
+            }
+        }
     }
 
     private fun setvalues() {
@@ -54,43 +105,7 @@ class ProfileFragment : Fragment() {
 
 
 
-        if (loginResponse?.userDetail?.photo!=null) {
 
-            Picasso.get()
-                .load(loginResponse?.userDetail?.profile_path + loginResponse?.userDetail?.photo)
-                .placeholder(R.drawable.placeholder) // optional
-                .error(R.drawable.placeholder)       // optional
-                .into(fragmentProfileBinding?.profileImage!!)
-        }
-
-
-
-        if (loginResponse?.userDetail?.photo1!=null) {
-            fragmentProfileBinding?.tvKyc?.visibility = View.VISIBLE
-            fragmentProfileBinding?.cardFront?.visibility = View.VISIBLE
-            Picasso.get()
-                .load(loginResponse?.userDetail?.aadhar_path + loginResponse?.userDetail?.photo1)
-                .placeholder(R.drawable.placeholder) // optional
-                .error(R.drawable.placeholder)       // optional
-                .into(fragmentProfileBinding?.imageAdadharFrontside!!)
-
-            fragmentProfileBinding?.imageAdadharFrontside?.setOnClickListener {
-                ShowFullScreenImageDialog.showFullScreenDialog(requireContext(), loginResponse?.userDetail?.aadhar_path + loginResponse?.userDetail?.photo1)
-            }
-        }
-
-        if (loginResponse?.userDetail?.photo2!=null) {
-            fragmentProfileBinding?.tvKyc?.visibility = View.VISIBLE
-            fragmentProfileBinding?.cardBack?.visibility = View.VISIBLE
-            Picasso.get()
-                .load(loginResponse?.userDetail?.aadhar_path + loginResponse?.userDetail?.photo2)
-                .placeholder(R.drawable.placeholder) // optional
-                .error(R.drawable.placeholder)       // optional
-                .into(fragmentProfileBinding?.imageAdadharBackside!!)
-            fragmentProfileBinding?.imageAdadharBackside?.setOnClickListener {
-                ShowFullScreenImageDialog.showFullScreenDialog(requireContext(), loginResponse?.userDetail?.aadhar_path + loginResponse?.userDetail?.photo2)
-            }
-        }
     }
 
 

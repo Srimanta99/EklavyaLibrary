@@ -51,8 +51,12 @@ class LoginActivity : AppCompatActivity() {
                //  sharedViewModel.setLoginResponse(it)
                  val gson = Gson()
                  val json: String = gson.toJson(it)
-                sheardPreferenceViewModel.saveData(Constants.LOGIN_RESPONSE, json)
-                  startActivity(Intent(this, MainActivity::class.java))
+                 sheardPreferenceViewModel.saveData(Constants.LOGIN_RESPONSE, json)
+                 sheardPreferenceViewModel.saveData(Constants.PROFILE_IMAGE_PATH,it?.userDetail?.profile_path + it?.userDetail?.photo)
+                sheardPreferenceViewModel.saveData(Constants.AADHAR_FRONT_IMAGE_PATH,it?.userDetail?.aadhar_path + it?.userDetail?.photo1)
+                sheardPreferenceViewModel.saveData(Constants.AADHAR_BACK_IMAGE_PATH,it?.userDetail?.aadhar_path + it?.userDetail?.photo2)
+
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
             else{

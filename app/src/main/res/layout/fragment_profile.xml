@@ -11,8 +11,8 @@
     <!-- Profile Image -->
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
         android:src="@drawable/user_profile"
         android:scaleType="centerCrop"
         android:contentDescription="Profile Image"
@@ -119,6 +119,7 @@ android:visibility="invisible"
             android:id="@+id/image_adadhar_frontside"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerInside"
             />
 
     </androidx.cardview.widget.CardView>
@@ -141,6 +142,8 @@ android:visibility="invisible"
             android:id="@+id/image_adadhar_backside"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
+            android:scaleType="centerInside"
             />
 
     </androidx.cardview.widget.CardView>

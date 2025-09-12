@@ -35,6 +35,7 @@
             android:layout_gravity="center_vertical"></ImageView>
 
         <TextView
+            android:id="@+id/tvlocation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="@dimen/_10sdp"
@@ -78,7 +79,7 @@
           android:layout_marginTop="@dimen/_5sdp"
           android:layout_marginRight="@dimen/_20sdp"
           android:background="@drawable/rounded_with_broder"
-          android:layout_height="@dimen/_235sdp">
+          android:layout_height="@dimen/_240sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -174,7 +175,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:background="@drawable/placeholder"
+
             android:scaleType="fitXY"
             app:layout_constraintTop_toBottomOf="@id/ll_card_top"></ImageView>
 
@@ -489,24 +490,28 @@
                 android:text="Customer KYC"></TextView>
 
 
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_12sdp"
                 android:textColor="#41435C"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:textStyle="bold"
                 android:text="Aadhar Front Image"></TextView>
 
+            <ImageView
+                android:id="@+id/img_aadhar_front"
+                android:layout_width="@dimen/_85sdp"
+                android:layout_height="@dimen/_85sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@drawable/placeholder"
+                android:visibility="gone"
+                android:scaleType="fitXY"></ImageView>
 
-            <Button
-                android:id="@+id/btn_aadhar_front"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_35sdp"
-                android:textSize="@dimen/_10sdp"
-                android:textColor="@color/white"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:background="@drawable/rounded_corner_button_with_no_broder"
-                android:text="Upload"></Button>
 
             <TextView
                 android:id="@+id/tv_frontImagename"
@@ -519,18 +524,8 @@
                 android:visibility="gone"
                 android:layout_marginBottom="@dimen/_10sdp"></TextView>
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/_12sdp"
-                android:textColor="#41435C"
-
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="Aadhar Back Image"></TextView>
-
             <Button
-                android:id="@+id/btn_aadhar_back"
+                android:id="@+id/btn_aadhar_front"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:textSize="@dimen/_10sdp"
@@ -538,6 +533,30 @@
                 android:layout_marginTop="@dimen/_2sdp"
                 android:background="@drawable/rounded_corner_button_with_no_broder"
                 android:text="Upload"></Button>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="#41435C"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Aadhar Back Image"></TextView>
+
+
+            <ImageView
+                android:id="@+id/img_aadhar_back"
+                android:layout_width="@dimen/_85sdp"
+                android:layout_height="@dimen/_85sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@drawable/placeholder"
+                android:visibility="gone"
+                android:scaleType="fitXY"></ImageView>
 
             <TextView
                 android:id="@+id/tv_backImagename"
@@ -549,6 +568,16 @@
                 android:text="Aadhar Front Image"
                 android:visibility="gone"
                 android:layout_marginBottom="@dimen/_10sdp"></TextView>
+
+            <Button
+                android:id="@+id/btn_aadhar_back"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@drawable/rounded_corner_button_with_no_broder"
+                android:text="Upload"></Button>
         </LinearLayout>
 
 
