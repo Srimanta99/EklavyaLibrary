@@ -37,6 +37,7 @@
                     android:layout_height="wrap_content"/>
 
                 <ImageView
+                    android:id="@+id/img_notification"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:background="@drawable/bell"
@@ -45,13 +46,14 @@
 
 
                 <TextView
+                    android:id="@+id/tv_notification_count"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:background="@drawable/rounded_green_with_whote_broder"
                     android:layout_marginRight="@dimen/_12sdp"
-                    android:text="15"
+
                     android:gravity="center"
-                    android:textSize="@dimen/_7sdp"
+                    android:textSize="@dimen/_9sdp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:layout_gravity="right"></TextView>

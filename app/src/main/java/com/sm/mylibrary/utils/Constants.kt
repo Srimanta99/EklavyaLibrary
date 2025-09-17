@@ -15,6 +15,9 @@ class Constants {
         const val PROFILE_IMAGE_PATH = "profile_image_path"
         const val AADHAR_FRONT_IMAGE_PATH = "aadha_front_image_path"
         const val AADHAR_BACK_IMAGE_PATH = "aadha_back_image_path"
+        const val REMEMBEME_USERNAME = "REMEMBERME_USERNAME"
+        const val REMEMBERME_PASSWORD = "REMEMBERME_PASSWORD"
+        const val REMEMBERME_STATUS = "REMEMBERME_STATUS"
 
 
     }

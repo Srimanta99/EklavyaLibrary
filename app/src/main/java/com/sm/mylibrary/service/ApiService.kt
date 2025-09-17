@@ -6,6 +6,7 @@ import com.sm.mylibrary.model.banner.BannerResponse
 import com.sm.mylibrary.model.imageupload.ImageUploadResponse
 import com.sm.mylibrary.model.login.LoginResponse
 import com.sm.mylibrary.model.login.User
+import com.sm.mylibrary.model.notififation.NotificationModel
 import com.sm.mylibrary.model.refund.RefundData
 import com.sm.mylibrary.model.slot.Slot
 import com.sm.mylibrary.repository.LoginRequest
@@ -63,5 +64,9 @@ interface ApiService {
     @FormUrlEncoded
     @POST("postphoto.php")
     suspend fun aadharImageUpload(@FieldMap fields: Map<String, String>): Response<ImageUploadResponse>
+
+    @FormUrlEncoded
+    @POST("attandence.php?action=notification")
+    suspend fun getNotification(@FieldMap fields: Map<String, String>): Response<NotificationModel>
 
 }

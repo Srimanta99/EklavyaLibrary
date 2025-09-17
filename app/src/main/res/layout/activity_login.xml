@@ -46,6 +46,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
       android:layout_marginRight="20dp"
+        android:textSize="@dimen/_11sdp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -53,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_42sdp"
             android:hint="Enter user name"
+            android:textSize="@dimen/_11sdp"
             android:inputType="textPersonName" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -68,6 +70,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        app:endIconMode="password_toggle"
+        android:textSize="@dimen/_11sdp"
+
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -75,9 +80,21 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_42sdp"
             android:hint="Enter password"
+            android:textSize="@dimen/_11sdp"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/chk_rememberme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:textSize="@dimen/_11sdp"
+        android:text="Remember Me"
+        app:layout_constraintTop_toBottomOf="@id/til_password"></CheckBox>
 
     <Button
         android:id="@+id/btn_login"
@@ -90,8 +107,8 @@
         android:textSize="@dimen/_13sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_password"
-        android:layout_marginTop="@dimen/_25sdp"
+        app:layout_constraintTop_toBottomOf="@id/chk_rememberme"
+        android:layout_marginTop="@dimen/_11sdp"
          android:background="@drawable/rounded_button_background" />
 
 

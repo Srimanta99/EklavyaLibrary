@@ -31,7 +31,7 @@
      <ScrollView
          android:id="@+id/sv"
          android:layout_width="match_parent"
-         android:layout_height="@dimen/_400sdp"
+         android:layout_height="@dimen/_380sdp"
 
          android:layout_marginLeft="@dimen/_20sdp"
          android:layout_marginTop="@dimen/_30sdp"
@@ -41,8 +41,8 @@
         android:id="@+id/rec_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_marginBottom="@dimen/_180sdp">
+        android:background="@drawable/rectangle_white_with__black_broder"
+        android:layout_marginBottom="@dimen/_220sdp">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_name"
@@ -349,7 +349,7 @@
             android:layout_marginRight="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:paddingBottom="@dimen/_20sdp"
-
+            app:endIconMode="password_toggle"
             app:layout_constraintTop_toBottomOf="@id/til_Vehicleno">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -373,7 +373,7 @@
             app:layout_constraintStart_toStartOf="@id/rec_view"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_15sdp"
-
+            app:endIconMode="password_toggle"
             android:paddingBottom="@dimen/_80sdp"
 
             app:layout_constraintTop_toBottomOf="@id/til_password">

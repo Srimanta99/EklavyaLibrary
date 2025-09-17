@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -22,6 +23,8 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
@@ -29,6 +32,7 @@ import com.sm.mylibrary.R
 import com.sm.mylibrary.databinding.FragmentHomeBinding
 import com.sm.mylibrary.model.login.LoginResponse
 import com.sm.mylibrary.utils.Constants
+import com.sm.mylibrary.utils.ImageCompress
 import com.sm.mylibrary.utils.PermissionHelper
 import com.sm.mylibrary.utils.PermissionViewModel
 import com.sm.mylibrary.utils.SheardPreferenceViewModel
@@ -50,6 +54,7 @@ class HomeFragment : Fragment() {
     lateinit var fragmentHomeViewModel : FragmentHomeViewModel
     var bannerlist = ArrayList<String>()
     val imageList = ArrayList<SlideModel>()
+    var bannerUrllist = ArrayList<String>()
     var isImageprofile  = false
     var aadharFrontSideClick = false
     var aadharBackSideClick = false
@@ -68,6 +73,9 @@ class HomeFragment : Fragment() {
 
     val requestDataAadharfrontImageUpload = HashMap<String, String>()
     val requestDataAadharbackImageUpload = HashMap<String, String>()
+    private lateinit var cropImageLauncher: ActivityResultLauncher<CropImageContractOptions>
+
+
 
 
 
@@ -78,14 +86,20 @@ class HomeFragment : Fragment() {
                 imageUri = it
                 if (isImageprofile) {
                     fragmentHomeBinding?.imgProfile?.setImageURI(it)
-                    baSe64ofProfileImage = fragmentHomeBinding?.imgProfile?.let { it1 ->
-                        Utils.imageViewToBase64(it1)
+//                    baSe64ofProfileImage = fragmentHomeBinding?.imgProfile?.let { it1 ->
+//                        Utils.imageViewToBase64(it1)
+//                    }
+//
+//                    Log.d("BASE64", baSe64ofProfileImage ?: "Conversion failed")
+                    val base64String = ImageCompress.getCompressedBase64FromUri(requireActivity(), imageUri!!)
+                    if (base64String != null) {
+                        requestDataProfileImageUpload["profile"] = Constants.BASE64CONSTANT + base64String.toString()
+                        requestDataProfileImageUpload["filetype"] = "profile"
+                        requestDataProfileImageUpload["uid"] = loginResponse?.userId.toString()
+                        fragmentHomeViewModel.uploadProfileImage(requestDataProfileImageUpload)
+                    }else{
+                        Toast.makeText(activity, "Image compression failed", Toast.LENGTH_SHORT).show()
                     }
-                    Log.d("BASE64", baSe64ofProfileImage ?: "Conversion failed")
-                    requestDataProfileImageUpload["profile"] = Constants.BASE64CONSTANT+ baSe64ofProfileImage.toString()
-                    requestDataProfileImageUpload["filetype"] = "profile"
-                    requestDataProfileImageUpload["uid"] = loginResponse?.userId.toString()
-                    fragmentHomeViewModel.uploadProfileImage(requestDataProfileImageUpload)
 
                     Log.d("Base64withconst", Constants.BASE64CONSTANT+ baSe64ofProfileImage.toString() ?: "Conversion failed")
                 }
@@ -93,15 +107,18 @@ class HomeFragment : Fragment() {
                    fragmentHomeBinding?.tvFrontImagename?.visibility = View.VISIBLE
                     fragmentHomeBinding?.imgAadharFront?.visibility = View.VISIBLE
                     fragmentHomeBinding?.imgAadharFront?.setImageURI(it)
-                    baSe64ofAadharFrontImage = fragmentHomeBinding?.imgAadharFront?.let { it1 ->
-                        Utils.imageViewToBase64(it1)
-                    }
+//                    baSe64ofAadharFrontImage = fragmentHomeBinding?.imgAadharFront?.let { it1 ->
+//                        Utils.imageViewToBase64(it1)
+//                    }
                   // Log.d("Base64", baSe64ofAadharFrontImage ?: "Conversion failed")
-                    requestDataAadharfrontImageUpload["aadharfront"] = Constants.BASE64CONSTANT+baSe64ofAadharFrontImage.toString()
-                    requestDataAadharfrontImageUpload["filetype"] = "aadhar"
-                    requestDataAadharfrontImageUpload["uid"] = loginResponse?.userId.toString()
+                    val base64String = ImageCompress.getCompressedBase64FromUri(requireActivity(), imageUri!!)
+                    if (base64String != null) {
+                        requestDataAadharfrontImageUpload["aadharfront"] = Constants.BASE64CONSTANT + base64String.toString()
+                        requestDataAadharfrontImageUpload["filetype"] = "aadharfront"
+                        requestDataAadharfrontImageUpload["uid"] = loginResponse?.userId.toString()
 
-                    fragmentHomeViewModel.uploadAadharImage(requestDataAadharfrontImageUpload)
+                        fragmentHomeViewModel.uploadAadharImage(requestDataAadharfrontImageUpload)
+                    }
 
                     fragmentHomeBinding?.tvFrontImagename?.text = Utils.getFileNameFromUri(requireContext(),imageUri!!)
 
@@ -110,16 +127,20 @@ class HomeFragment : Fragment() {
                     fragmentHomeBinding?.tvBackImagename?.visibility = View.VISIBLE
                     fragmentHomeBinding?.imgAadharBack?.visibility = View.VISIBLE
                     fragmentHomeBinding?.imgAadharBack?.setImageURI(it)
-                    baSe64ofAadharBackImage = fragmentHomeBinding?.imgAadharBack?.let { it1 ->
-                        Utils.imageViewToBase64(it1)
-                    }
+//                    baSe64ofAadharBackImage = fragmentHomeBinding?.imgAadharBack?.let { it1 ->
+//                        Utils.imageViewToBase64(it1)
+//                    }
                    // Log.d("Base64", baSe64ofAadharBackImage ?: "Conversion failed")
+                    val base64String = ImageCompress.getCompressedBase64FromUri(requireActivity(), imageUri!!)
+                    if (base64String != null) {
+                        requestDataAadharbackImageUpload["aadharback"] = Constants.BASE64CONSTANT + base64String.toString()
+                        requestDataAadharbackImageUpload["filetype"] = "aadharback"
+                        requestDataAadharbackImageUpload["uid"] = loginResponse?.userId.toString()
 
-                    requestDataAadharbackImageUpload["aadharback"] =Constants.BASE64CONSTANT+ baSe64ofAadharBackImage.toString()
-                    requestDataAadharbackImageUpload["filetype"] = "aadhar"
-                    requestDataAadharbackImageUpload["uid"] = loginResponse?.userId.toString()
-
-                    fragmentHomeViewModel.uploadAadharImage(requestDataAadharbackImageUpload)
+                        fragmentHomeViewModel.uploadAadharImage(requestDataAadharbackImageUpload)
+                    }else{
+                        Toast.makeText(activity, "Image compression failed", Toast.LENGTH_SHORT).show()
+                    }
 
 
                     fragmentHomeBinding?.tvBackImagename?.text = Utils.getFileNameFromUri(requireContext(),imageUri!!)
@@ -136,17 +157,23 @@ class HomeFragment : Fragment() {
                 imageUri?.let {
                     if (isImageprofile) {
                         fragmentHomeBinding?.imgProfile?.setImageURI(it)
-                        baSe64ofProfileImage = fragmentHomeBinding?.imgProfile?.let { it1 ->
-                            Utils.imageViewToBase64(it1)
-                        }
-                        requestDataProfileImageUpload["profile"] = Constants.BASE64CONSTANT+baSe64ofProfileImage.toString()
-                        requestDataProfileImageUpload["filetype"] = "profile"
-                        requestDataProfileImageUpload["uid"] = loginResponse?.userId.toString()
+//                        baSe64ofProfileImage = fragmentHomeBinding?.imgProfile?.let { it1 ->
+//                            Utils.imageViewToBase64(it1)
+//                        }
 
                         //Log.d("uid", loginResponse?.userId.toString() ?: "Conversion failed")
+                        val base64String = ImageCompress.getCompressedBase64FromUri(requireActivity(), imageUri!!)
+                        if (base64String != null) {
+                            requestDataProfileImageUpload["profile"] = Constants.BASE64CONSTANT + base64String.toString()
+                            requestDataProfileImageUpload["filetype"] = "profile"
+                            requestDataProfileImageUpload["uid"] = loginResponse?.userId.toString()
 
+                            fragmentHomeViewModel.uploadProfileImage(requestDataProfileImageUpload)
 
-                        fragmentHomeViewModel.uploadProfileImage(requestDataProfileImageUpload)
+                        } else {
+                            Toast.makeText(activity, "Image compression failed", Toast.LENGTH_SHORT).show()
+                        }
+
                     }
                     if (aadharFrontSideClick) {
                         fragmentHomeBinding?.tvFrontImagename?.visibility = View.VISIBLE
@@ -154,16 +181,20 @@ class HomeFragment : Fragment() {
 
                         fragmentHomeBinding?.imgAadharFront?.visibility = View.VISIBLE
                         fragmentHomeBinding?.imgAadharFront?.setImageURI(it)
-                        baSe64ofAadharFrontImage = fragmentHomeBinding?.imgAadharFront?.let { it1 ->
-                            Utils.imageViewToBase64(it1)
-                        }
+//                        baSe64ofAadharFrontImage = fragmentHomeBinding?.imgAadharFront?.let { it1 ->
+//                            Utils.imageViewToBase64(it1)
+//                        }
 
-                        requestDataAadharfrontImageUpload["aadharfront"] = Constants.BASE64CONSTANT+baSe64ofAadharFrontImage.toString()
-                        requestDataAadharfrontImageUpload["filetype"] = "aadhar"
+                        val base64String = ImageCompress.getCompressedBase64FromUri(requireActivity(), imageUri!!)
+                        if (base64String != null) {
+                        requestDataAadharfrontImageUpload["aadharfront"] = Constants.BASE64CONSTANT+ base64String.toString()
+                        requestDataAadharfrontImageUpload["filetype"] = "aadharfront"
                         requestDataAadharfrontImageUpload["uid"] = loginResponse?.userId.toString()
 
                         fragmentHomeViewModel.uploadAadharImage(requestDataAadharfrontImageUpload)
-
+                        } else {
+                            Toast.makeText(activity, "Image compression failed", Toast.LENGTH_SHORT).show()
+                        }
 
                        //  Log.d("Base64", baSe64ofAadharFrontImage ?: "Conversion failed")
 
@@ -183,16 +214,22 @@ class HomeFragment : Fragment() {
                         fragmentHomeBinding?.tvBackImagename?.visibility = View.VISIBLE
                         fragmentHomeBinding?.imgAadharBack?.visibility = View.VISIBLE
                         fragmentHomeBinding?.imgAadharBack?.setImageURI(it)
-                        baSe64ofAadharBackImage = fragmentHomeBinding?.imgAadharBack?.let { it1 ->
-                            Utils.imageViewToBase64(it1)
-                        }
+//                        baSe64ofAadharBackImage = fragmentHomeBinding?.imgAadharBack?.let { it1 ->
+//                            Utils.imageViewToBase64(it1)
+//                        }
                        // Log.d("Base64", baSe64ofAadharBackImage ?: "Conversion failed")
+                        // val compressedBase64 = Utils.compressBase64Image(baSe64ofAadharBackImage!!,60,400,400 )
+                        val base64String = ImageCompress.getCompressedBase64FromUri(requireActivity(), imageUri!!)
+                        if (base64String != null) {
+                            requestDataAadharbackImageUpload["aadharback"] = Constants.BASE64CONSTANT + base64String.toString()
+                            requestDataAadharbackImageUpload["filetype"] = "aadharback"
+                            requestDataAadharbackImageUpload["uid"] = loginResponse?.userId.toString()
 
-                        requestDataAadharbackImageUpload["aadharback"] = Constants.BASE64CONSTANT+baSe64ofAadharBackImage.toString()
-                        requestDataAadharbackImageUpload["filetype"] = "aadhar"
-                        requestDataAadharbackImageUpload["uid"] = loginResponse?.userId.toString()
+                            fragmentHomeViewModel.uploadAadharImage(requestDataAadharbackImageUpload)
+                        }else{
+                            Toast.makeText(activity, "Image compression failed", Toast.LENGTH_SHORT).show()
 
-                        fragmentHomeViewModel.uploadAadharImage(requestDataAadharbackImageUpload)
+                        }
                        // Log.d("Base64", baSe64ofAadharBackImage ?: "Conversion failed")
 
 
@@ -222,10 +259,11 @@ class HomeFragment : Fragment() {
 
         fragmentHomeViewModel.banner.observe(this){
 
-            bannerlist = ArrayList<String>()
+           // bannerlist = ArrayList<String>()
             for ( i in 0 until it.size){
-                bannerlist.add(it[i].image_path+it[i].photo)
-                imageList.add(SlideModel(it[i].image_path+it[i].photo, it[i].url))
+               // bannerlist.add(it[i].image_path+it[i].photo)
+                imageList.add(SlideModel(it[i].image_path+it[i].photo, ""))
+                bannerUrllist.add(it[i].url)
             }
 
 
@@ -244,7 +282,7 @@ class HomeFragment : Fragment() {
 
                 override fun onItemSelected(position: Int) {
 
-                    val imgUrl = imageList[position].title
+                    val imgUrl = bannerUrllist.get(position)
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(imgUrl))
                     startActivity(intent)
 
@@ -361,7 +399,7 @@ class HomeFragment : Fragment() {
 
 
 
-        if (sheardPreferenceViewModel.loadData(Constants.PROFILE_IMAGE_PATH)!="" ) {
+        if (!sheardPreferenceViewModel.loadData(Constants.PROFILE_IMAGE_PATH).equals("") ) {
             val profile = sheardPreferenceViewModel.loadData(Constants.PROFILE_IMAGE_PATH)
 
             Glide.with(this)
@@ -375,23 +413,40 @@ class HomeFragment : Fragment() {
         if (sheardPreferenceViewModel.loadData(Constants.AADHAR_FRONT_IMAGE_PATH)!="") {
 
             val imagePathFront = sheardPreferenceViewModel.loadData(Constants.AADHAR_FRONT_IMAGE_PATH)
-            Glide.with(this)
-                .load(imagePathFront)
-                .placeholder(R.drawable.placeholder) // optional
-                .error(R.drawable.placeholder)       // optional
-                .into(fragmentHomeBinding?.imgAadharFront!!)
+            fragmentHomeBinding?.tvFrontImagename?.visibility = View.VISIBLE
+            fragmentHomeBinding?.tvFrontImagename?.text = imagePathFront
+
+            /* Glide.with(this)
+                 .load(imagePathFront)
+                 .placeholder(R.drawable.placeholder) // optional
+                 .error(R.drawable.placeholder)       // optional
+                 .into(fragmentHomeBinding?.imgAadharFront!!)*/
         }
 
         if (sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH)!="") {
 
             val imagePathBack = sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH)
+            fragmentHomeBinding?.tvBackImagename?.visibility = View.VISIBLE
+            fragmentHomeBinding?.tvBackImagename?.text = imagePathBack
 
-            Glide.with(this)
+           /* Glide.with(this)
                 .load(imagePathBack)
                 .placeholder(R.drawable.placeholder) // optional
                 .error(R.drawable.placeholder)       // optional
-                .into(fragmentHomeBinding?.imgAadharBack!!)
+                .into(fragmentHomeBinding?.imgAadharBack!!)*/
         }
+
+
+        cropImageLauncher = registerForActivityResult(CropImageContract()) { result ->
+            if (result.isSuccessful) {
+                val croppedUri = result.uriContent
+
+            } else {
+                val ex = result.error
+                Toast.makeText(requireActivity(), "Crop error: $ex", Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
         /*fragmentHomeBinding?.btnUploadImage?.setOnClickListener {
 
@@ -407,6 +462,7 @@ class HomeFragment : Fragment() {
 //            }
         }*/
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -439,8 +495,6 @@ class HomeFragment : Fragment() {
             } == PackageManager.PERMISSION_GRANTED
         }
     }
-
-
 
     private fun requestStoragePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

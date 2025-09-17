@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.sm.mylibrary.databinding.ActivitySignUpBinding
 import com.sm.mylibrary.utils.DatePicker
 import com.sm.mylibrary.viewmodel.ActivitySignUpViewModel
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -33,7 +35,14 @@ class SignUpActivity : AppCompatActivity() {
 
         signUpBinding.txtDob.setOnClickListener {
             DatePicker.showDatePicker(this) { selectedDate ->
-                signUpBinding.txtDob.setText(selectedDate)
+                val inputFormat = SimpleDateFormat("d/M/yyyy", Locale.getDefault())
+
+// formatter for your desired output format:
+                val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+                val date = inputFormat.parse(selectedDate)   // convert string → Date
+                val formattedDate = outputFormat.format(date!!)
+                signUpBinding.txtDob.setText(formattedDate)
             }
         }
 

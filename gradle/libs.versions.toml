@@ -21,6 +21,7 @@ navigationUiKtx = "2.9.0"
 navigationUiKtxVersion = "2.7.5"
 sdpAndroid = "1.1.1"
 
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-drawerlayout = { module = "androidx.drawerlayout:drawerlayout", version.ref = "drawerlayout" }
@@ -43,7 +44,11 @@ material-v1110 = { module = "com.google.android.material:material", version.ref 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterGson" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
 
+
+
 [plugins]
-android-application = { id = "com.android.application", version.ref = "agp" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ android-application = { id = "com.android.application", version.ref = "agp" }
+ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+
 

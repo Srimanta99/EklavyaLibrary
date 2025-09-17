@@ -23,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyLibrary"
         tools:targetApi="31">
+        <activity
+            android:name=".view.ActivityNotification"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -33,6 +36,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <activity
             android:name=".view.AttendenceActivity"
             android:exported="false" />

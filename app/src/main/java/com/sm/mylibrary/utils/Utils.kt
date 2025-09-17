@@ -135,4 +135,48 @@ object Utils {
         // Fallback (last path segment)
         return uri.lastPathSegment*/
     }
+
+
+
+    fun compressBase64Image(
+        base64String: String,
+        quality: Int = 60,
+        maxWidth: Int = 800,
+        maxHeight: Int = 800
+    ): String {
+        // 1. Decode Base64 to bytes
+        val imageBytes = Base64.decode(base64String, Base64.DEFAULT)
+
+        // 2. Convert bytes to Bitmap
+        val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+
+        // 3. Optionally scale down the bitmap
+        val scaledBitmap = scaleBitmap(bitmap, maxWidth, maxHeight)
+
+        // 4. Compress bitmap again
+        val outputStream = ByteArrayOutputStream()
+        scaledBitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+
+        // 5. Re-encode to Base64
+        return Base64.encodeToString(outputStream.toByteArray(), Base64.NO_WRAP)
+    }
+
+    private fun scaleBitmap(bitmap: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
+        val width = bitmap.width
+        val height = bitmap.height
+
+        val ratioBitmap = width.toFloat() / height.toFloat()
+        val ratioMax = maxWidth.toFloat() / maxHeight.toFloat()
+
+        var finalWidth = maxWidth
+        var finalHeight = maxHeight
+
+        if (ratioMax > 1) {
+            finalWidth = (maxHeight * ratioBitmap).toInt()
+        } else {
+            finalHeight = (maxWidth / ratioBitmap).toInt()
+        }
+
+        return Bitmap.createScaledBitmap(bitmap, finalWidth, finalHeight, true)
+    }
 }

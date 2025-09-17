@@ -1,0 +1,91 @@
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_50sdp"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/_5sdp"
+    android:background="@drawable/rounded_corner_button_with_no_broder"
+    android:padding="12dp">
+
+
+   <!-- <TextView
+        android:id="@+id/tvMeaasgeType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="Message Type :   " />
+    <TextView
+        android:id="@+id/tv_message_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+         android:layout_toRightOf="@id/tvMeaasgeType"
+        android:text="General" />-->
+
+    <TextView
+        android:id="@+id/tv_Msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textSize="@dimen/_10sdp"
+
+        android:textColor="@color/white"
+        android:text="Message :   " />
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_Msg"
+
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="text message" />
+
+    <TextView
+        android:id="@+id/tv_added"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_Msg"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="Message :   " />
+
+    <TextView
+        android:id="@+id/tvAddedOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_message"
+        android:layout_toRightOf="@id/tv_added"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="2025-09-16 00:00:00" />
+
+    <!--<TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_added"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="Status :   " />
+
+
+    <TextView
+        android:id="@+id/tv_Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAddedOn"
+        android:layout_toRightOf="@id/tvStatus"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="Active" />-->
+</RelativeLayout>

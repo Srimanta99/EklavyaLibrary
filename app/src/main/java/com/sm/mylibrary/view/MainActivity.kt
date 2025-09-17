@@ -13,13 +13,13 @@ import com.google.gson.Gson
 import com.sm.mylibrary.R
 import com.sm.mylibrary.databinding.ActivityMainBinding
 import com.sm.mylibrary.model.login.LoginResponse
+import com.sm.mylibrary.model.notififation.NotificationDetails
 import com.sm.mylibrary.utils.Constants
 import com.sm.mylibrary.utils.SheardPreferenceViewModel
 import com.sm.mylibrary.view.fragments.HomeFragment
 import com.sm.mylibrary.view.fragments.ProfileFragment
 import com.sm.mylibrary.view.fragments.RefundFragment
 import com.sm.mylibrary.viewmodel.ActivityMainViewModel
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     val sheardPreferenceViewModel = SheardPreferenceViewModel()
     var loginResponse : LoginResponse? = null
 
-
+     var notificationCount = ArrayList<NotificationDetails>()
 
    // private lateinit var progressDialog: ProgressDialog
 
@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding.drawerLayout.addDrawerListener(toggle)
         toggle.drawerArrowDrawable.color = ContextCompat.getColor(this, R.color.white)
         toggle.syncState()
+
+
 
 
 //        progressDialog = ProgressDialog(this).apply {
@@ -68,7 +70,33 @@ class MainActivity : AppCompatActivity() {
 
         showuserDetails()
         loadFragment(HomeFragment())
+        val requestData = HashMap<String, String>()
+        requestData["uid"] = loginResponse?.userId.toString()
+        // requestData["name"] = "131"
 
+            activityMainViewModel.getnotification(requestData)
+
+        activityMainViewModel.notificationResult.observe(this){
+            if(it.responsecode == "200"){
+              //  Log.d("notification RESPONSE", it.notification.toString())
+                for ( i in 0 until it.notification.size){
+                    notificationCount.add(it.notification[i])
+                }
+                activityMainBinding.tvNotificationCount.text = notificationCount.size.toString()
+            }
+        }
+
+
+        activityMainBinding.imgNotification.setOnClickListener {
+            if(notificationCount.size>0) {
+                val intent = Intent(this, ActivityNotification::class.java)
+                intent.putExtra("notification", notificationCount!!)
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(this, "No notification", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         // Observe menu clicks
         activityMainViewModel.menuAction.observe(this) {
@@ -100,8 +128,22 @@ class MainActivity : AppCompatActivity() {
                 }
                 7 -> {
                     Toast.makeText(this, "Successfully Logged out", Toast.LENGTH_SHORT).show()
+
+                    val rememberStatus = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_STATUS)
+                    val USERNAME = sheardPreferenceViewModel.loadData(Constants.REMEMBEME_USERNAME)
+                    val PASSWORD = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_PASSWORD)
+
+
+
                     sheardPreferenceViewModel.clearPreferenceData()
                     sheardPreferenceViewModel.saveData(Constants.IS_LOGIN,"")
+
+                    if (rememberStatus.equals("true")){
+                        sheardPreferenceViewModel.saveData(Constants.REMEMBERME_STATUS, rememberStatus)
+                        sheardPreferenceViewModel.saveData(Constants.REMEMBEME_USERNAME, USERNAME)
+                        sheardPreferenceViewModel.saveData(Constants.REMEMBERME_PASSWORD, PASSWORD)
+                    }else
+                        sheardPreferenceViewModel.saveData(Constants.REMEMBERME_STATUS, "false")
 
                     val intent = Intent(this, LoginActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

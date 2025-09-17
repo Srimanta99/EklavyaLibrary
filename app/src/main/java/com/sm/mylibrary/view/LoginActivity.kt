@@ -40,6 +40,14 @@ class LoginActivity : AppCompatActivity() {
             if (isLoading) progressDialog.show() else progressDialog.dismiss()
         }
 
+        val isRemembered = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_STATUS)
+        if (isRemembered == "true"){
+            loginViewBinding.txtUsername.setText(sheardPreferenceViewModel.loadData(Constants.REMEMBEME_USERNAME))
+            loginViewBinding.txtPassword.setText(sheardPreferenceViewModel.loadData(Constants.REMEMBERME_PASSWORD))
+            loginViewBinding.chkRememberme.isChecked = true
+        }
+
+
         loginViewModel.loginResult.observe(this){
             if(it.responsecode == "200"){
                 sheardPreferenceViewModel.saveData(Constants.IS_LOGIN,"login")
@@ -52,9 +60,20 @@ class LoginActivity : AppCompatActivity() {
                  val gson = Gson()
                  val json: String = gson.toJson(it)
                  sheardPreferenceViewModel.saveData(Constants.LOGIN_RESPONSE, json)
+                if ( !it.userDetail?.photo.equals(""))
                  sheardPreferenceViewModel.saveData(Constants.PROFILE_IMAGE_PATH,it?.userDetail?.profile_path + it?.userDetail?.photo)
-                sheardPreferenceViewModel.saveData(Constants.AADHAR_FRONT_IMAGE_PATH,it?.userDetail?.aadhar_path + it?.userDetail?.photo1)
-                sheardPreferenceViewModel.saveData(Constants.AADHAR_BACK_IMAGE_PATH,it?.userDetail?.aadhar_path + it?.userDetail?.photo2)
+                if (!it.userDetail?.photo1.equals(""))
+                   sheardPreferenceViewModel.saveData(Constants.AADHAR_FRONT_IMAGE_PATH,it?.userDetail?.aadhar_path + it?.userDetail?.photo1)
+               if( !it.userDetail?.photo2.equals(""))
+                 sheardPreferenceViewModel.saveData(Constants.AADHAR_BACK_IMAGE_PATH,it?.userDetail?.aadhar_path + it?.userDetail?.photo2)
+
+                if (loginViewBinding.chkRememberme.isChecked){
+                    sheardPreferenceViewModel.saveData(Constants.REMEMBERME_STATUS,"true")
+                    sheardPreferenceViewModel.saveData(Constants.REMEMBEME_USERNAME,loginViewModel.username.value.toString())
+                    sheardPreferenceViewModel.saveData(Constants.REMEMBERME_PASSWORD,loginViewModel.password.value.toString())
+                }else{
+                    sheardPreferenceViewModel.saveData(Constants.REMEMBERME_STATUS,"false")
+                }
 
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()

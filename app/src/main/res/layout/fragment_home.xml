@@ -177,6 +177,7 @@
             android:layout_marginTop="@dimen/_8sdp"
 
             android:scaleType="fitXY"
+            android:background="@drawable/placeholder"
             app:layout_constraintTop_toBottomOf="@id/ll_card_top"></ImageView>
 
           <TextView

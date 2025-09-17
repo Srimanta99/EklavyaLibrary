@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+
 }
 
 android {
@@ -45,6 +46,14 @@ android {
         dataBinding = true
         viewBinding = true
     }
+
+    kotlin {
+        sourceSets.all {
+            languageSettings {
+                optIn("kotlinx.parcelize.Parcelize")
+            }
+        }
+    }
 }
 
 dependencies {
@@ -86,6 +95,8 @@ dependencies {
 
     implementation ("com.github.bumptech.glide:glide:4.16.0") // latest stable
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+    implementation ("com.vanniktech:android-image-cropper:4.5.0")
+
 
 
 
