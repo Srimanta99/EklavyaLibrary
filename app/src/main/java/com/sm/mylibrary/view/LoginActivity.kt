@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel = ViewModelProvider(this).get(ActivityLoginViewModel::class.java)
 
         progressDialog = ProgressDialog(this).apply {
-            setMessage("Loading...")
+            setMessage("Please wait...")
             setCancelable(false)
         }
 

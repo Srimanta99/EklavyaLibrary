@@ -204,6 +204,7 @@
             android:gravity="right"
 
             android:text="STATUS:"
+            android:textStyle="bold"
 
             android:layout_marginLeft="@dimen/_15sdp"
             app:layout_constraintLeft_toRightOf="@id/tv_std_id"

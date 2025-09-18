@@ -5,6 +5,13 @@
     android:background="#142551"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <ImageView
+        android:id="@+id/fullScreenImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true" />
     <ImageView
         android:id="@+id/img_cross"
         android:layout_width="@dimen/_35sdp"
@@ -15,11 +22,5 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </ImageView>
-    <ImageView
-        android:id="@+id/fullScreenImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerInside"
-        android:adjustViewBounds="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

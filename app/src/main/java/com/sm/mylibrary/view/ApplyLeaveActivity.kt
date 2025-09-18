@@ -38,7 +38,7 @@ class ApplyLeaveActivity : AppCompatActivity() {
         loginResponse = Gson().fromJson(loginData, LoginResponse::class.java)
 
         progressDialog = ProgressDialog(this).apply {
-            setMessage("Loading...")
+            setMessage("Please wait...")
             setCancelable(false)
         }
 

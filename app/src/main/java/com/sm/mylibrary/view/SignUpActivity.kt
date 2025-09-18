@@ -47,7 +47,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         progressDialog = ProgressDialog(this).apply {
-            setMessage("Loading...")
+            setMessage("Please wait...")
             setCancelable(false)
         }
 

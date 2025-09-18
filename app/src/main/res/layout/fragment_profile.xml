@@ -121,6 +121,12 @@ android:visibility="invisible"
             android:layout_height="match_parent"
             android:scaleType="centerInside"
             />
+        <ProgressBar
+            android:id="@+id/progressBar_aadhar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
     </androidx.cardview.widget.CardView>
 
@@ -146,6 +152,12 @@ android:visibility="invisible"
             android:scaleType="centerInside"
             />
 
+        <ProgressBar
+            android:id="@+id/progressBar_aadhar_back"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
     </androidx.cardview.widget.CardView>
 
     <!-- Divider -->

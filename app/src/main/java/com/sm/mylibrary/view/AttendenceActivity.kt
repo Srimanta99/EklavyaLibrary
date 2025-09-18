@@ -14,7 +14,6 @@ import com.sm.mylibrary.model.login.LoginResponse
 import com.sm.mylibrary.utils.Constants
 import com.sm.mylibrary.utils.SheardPreferenceViewModel
 import com.sm.mylibrary.viewmodel.ActivityAttendanceViewModel
-import com.sm.mylibrary.viewmodel.ActivityMainViewModel
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalTime
@@ -44,7 +43,7 @@ class AttendenceActivity : AppCompatActivity() {
         loginResponse = Gson().fromJson(loginData, LoginResponse::class.java)
 
         progressDialog = ProgressDialog(this).apply {
-            setMessage("Loading...")
+            setMessage("Please Wait...")
             setCancelable(false)
         }
 

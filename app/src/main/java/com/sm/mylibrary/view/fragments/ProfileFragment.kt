@@ -1,5 +1,7 @@
 package com.sm.mylibrary.view.fragments
 
+
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.gson.Gson
 import com.sm.mylibrary.R
 import com.sm.mylibrary.databinding.FragmentProfileBinding
@@ -52,6 +57,11 @@ class ProfileFragment : Fragment() {
                 .placeholder(R.drawable.user_profile) // optional
                 .error(R.drawable.user_profile)       // optional
                 .into(fragmentProfileBinding?.profileImage!!)
+
+            fragmentProfileBinding?.profileImage?.setOnClickListener({
+                ShowFullScreenImageDialog.showFullScreenDialog(requireContext(), profile)
+
+            })
         }
 
 
@@ -66,17 +76,41 @@ class ProfileFragment : Fragment() {
             Glide.with(this)
                 .load(imagePathFront)
                 //.load(loginResponse?.userDetail?.aadhar_path + loginResponse?.userDetail?.photo1)
-                .placeholder(R.drawable.placeholder) // optional
-                .error(R.drawable.placeholder)       // optional
-                .into(fragmentProfileBinding?.imageAdadharFrontside!!)
+              //  .placeholder(R.drawable.placeholder) // optional
+                .error(R.drawable.placeholder)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        fragmentProfileBinding?.progressBarAadhar?.visibility = View.GONE // hide loader
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        model: Any,
+                        target: com.bumptech.glide.request.target.Target<Drawable>?,
+                        dataSource: com.bumptech.glide.load.DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        fragmentProfileBinding?.progressBarAadhar?.visibility = View.GONE // hide loader
+                        return false
+                    }
+                })
+                    .into(fragmentProfileBinding?.imageAdadharFrontside!!)
 
             fragmentProfileBinding?.imageAdadharFrontside?.setOnClickListener {
                 ShowFullScreenImageDialog.showFullScreenDialog(requireContext(), imagePathFront)
             }
+
+
         }
 
         if (sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH)!="") {
-            Log.d("addharimagepath back",sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH))
+          //  Log.d("addharimagepath back",sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH))
             val imagePathBack = sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH)
 
             fragmentProfileBinding?.tvKyc?.visibility = View.VISIBLE
@@ -84,7 +118,29 @@ class ProfileFragment : Fragment() {
             Glide.with(this)
                 .load(imagePathBack)
                 // .load(loginResponse?.userDetail?.aadhar_path + loginResponse?.userDetail?.photo2)
-                .placeholder(R.drawable.placeholder) // optional
+               // .placeholder(R.drawable.placeholder) // optional
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        fragmentProfileBinding?.progressBarAadharBack?.visibility = View.GONE // hide loader
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        model: Any,
+                        target: com.bumptech.glide.request.target.Target<Drawable>?,
+                        dataSource: com.bumptech.glide.load.DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        fragmentProfileBinding?.progressBarAadharBack?.visibility = View.GONE // hide loader
+                        return false
+                    }
+                })
                 .error(R.drawable.placeholder)
                 // optional
                 .into(fragmentProfileBinding?.imageAdadharBackside!!)

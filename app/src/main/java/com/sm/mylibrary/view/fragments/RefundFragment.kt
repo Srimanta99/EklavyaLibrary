@@ -72,13 +72,15 @@ class RefundFragment : Fragment() {
     }
 
     private fun setValue(loginResponse: LoginResponse?) {
-        fragmentRefundBinding?.tvSNo?.text = loginResponse?.userDetail?.refid.toString()
-        fragmentRefundBinding?.tvRefunds?.text = loginResponse?.userDetail?.exp_type
-        fragmentRefundBinding?.tvAmount?.text = loginResponse?.userDetail?.amount
-        fragmentRefundBinding?.tvDetails?.text = loginResponse?.userDetail?.detail
-        fragmentRefundBinding?.tvPaidby?.text = loginResponse?.userDetail?.paid_by
-        fragmentRefundBinding?.tvStatus?.text = loginResponse?.userDetail?.refstatus
-        fragmentRefundBinding?.tvAddedOn?.text = loginResponse?.userDetail?.ref_date
+        if (loginResponse?.userDetail?.refid!=null) {
+            fragmentRefundBinding?.tvSNo?.text = loginResponse?.userDetail?.refid.toString()
+            fragmentRefundBinding?.tvRefunds?.text = loginResponse?.userDetail?.exp_type
+            fragmentRefundBinding?.tvAmount?.text = loginResponse?.userDetail?.amount
+            fragmentRefundBinding?.tvDetails?.text = loginResponse?.userDetail?.detail
+            fragmentRefundBinding?.tvPaidby?.text = loginResponse?.userDetail?.paid_by
+            fragmentRefundBinding?.tvStatus?.text = loginResponse?.userDetail?.refstatus
+            fragmentRefundBinding?.tvAddedOn?.text = loginResponse?.userDetail?.ref_date
+        }
 
 
 
