@@ -11,6 +11,7 @@ import com.sm.mylibrary.databinding.ActivityApplyLeaveBinding
 import com.sm.mylibrary.model.login.LoginResponse
 import com.sm.mylibrary.utils.Constants
 import com.sm.mylibrary.utils.SheardPreferenceViewModel
+import com.sm.mylibrary.utils.Utils
 import com.sm.mylibrary.viewmodel.ActivityApplyLeaveViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -53,8 +54,8 @@ class ApplyLeaveActivity : AppCompatActivity() {
                     val dayStr = String.format("%02d", dayOfMonth)
                     val monthStr = String.format("%02d", month1 + 1) // Month is
                     val selectedDate = dayStr + "/" + monthStr+ "/" + year1
-
-                    activityApplyLeaveBinding.tvLeaveStart.setText(selectedDate)
+                    val formattedDate = Utils.dateFormatConveter(selectedDate)
+                    activityApplyLeaveBinding.tvLeaveStart.setText(formattedDate)
                 },
                 year, month, day
             )
@@ -73,7 +74,9 @@ class ApplyLeaveActivity : AppCompatActivity() {
                     val dayStr = String.format("%02d", dayOfMonth)
                     val monthStr = String.format("%02d", month1 + 1) // Month is
                     val selectedDate = dayStr + "/" + monthStr+ "/" + year1
-                    activityApplyLeaveBinding.tvLeaveEnd.setText(selectedDate)
+
+                    val formattedDate = Utils.dateFormatConveter(selectedDate)
+                    activityApplyLeaveBinding.tvLeaveEnd.setText(formattedDate)
                 },
                 year, month, day
             )

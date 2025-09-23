@@ -6,6 +6,7 @@ import com.sm.mylibrary.model.banner.BannerResponse
 import com.sm.mylibrary.model.imageupload.ImageUploadResponse
 import com.sm.mylibrary.model.login.LoginResponse
 import com.sm.mylibrary.model.login.User
+import com.sm.mylibrary.model.manageleave.ManageLeaveResponse
 import com.sm.mylibrary.model.notififation.NotificationModel
 import com.sm.mylibrary.model.refund.RefundData
 import com.sm.mylibrary.model.slot.Slot
@@ -68,5 +69,10 @@ interface ApiService {
     @FormUrlEncoded
     @POST("attandence.php?action=notification")
     suspend fun getNotification(@FieldMap fields: Map<String, String>): Response<NotificationModel>
+
+    @FormUrlEncoded
+    @POST("attandence.php?action=leavecount")
+    suspend fun getLeaveData(@FieldMap fields: Map<String, String>): Response<ManageLeaveResponse>
+
 
 }

@@ -1,0 +1,114 @@
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/_5sdp"
+    android:background="@drawable/rounded_corner_button_with_no_broder"
+    android:padding="12dp">
+
+
+   <TextView
+        android:id="@+id/tvnumberofday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="Number of days :   " />
+    <TextView
+        android:id="@+id/tv_leave_days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+         android:layout_toRightOf="@id/tvnumberofday"
+        android:text="4 days" />
+
+    <TextView
+        android:id="@+id/tv_Msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textSize="@dimen/_10sdp"
+        android:layout_below="@+id/tvnumberofday"
+        android:textColor="@color/white"
+        android:text="Start Date :   " />
+
+    <TextView
+        android:id="@+id/tv_startdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_Msg"
+        android:layout_below="@+id/tvnumberofday"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="2025-09-12" />
+
+    <TextView
+        android:id="@+id/tv_added"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_Msg"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="End date :   " />
+
+    <TextView
+        android:id="@+id/tvenddate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_startdate"
+        android:layout_toRightOf="@id/tv_added"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="2025-09-16 " />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_added"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="Status :   " />
+
+
+    <TextView
+        android:id="@+id/tv_Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvenddate"
+        android:layout_toRightOf="@id/tvStatus"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="Pending" />
+
+    <TextView
+        android:id="@+id/tvApprovedate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvStatus"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="Approve Date :   " />
+
+
+    <TextView
+        android:id="@+id/tv_Approvedate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvStatus"
+        android:layout_toRightOf="@id/tvApprovedate"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="2025-09-11" />
+</RelativeLayout>

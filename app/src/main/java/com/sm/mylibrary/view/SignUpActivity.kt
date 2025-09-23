@@ -1,18 +1,39 @@
 package com.sm.mylibrary.view
 
+
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Html
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.method.ScrollingMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.UnderlineSpan
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.sm.mylibrary.R
 import com.sm.mylibrary.databinding.ActivitySignUpBinding
+import com.sm.mylibrary.utils.Constants
 import com.sm.mylibrary.utils.DatePicker
+import com.sm.mylibrary.utils.Utils
 import com.sm.mylibrary.viewmodel.ActivitySignUpViewModel
-import java.text.SimpleDateFormat
-import java.util.Locale
+
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -31,17 +52,18 @@ class SignUpActivity : AppCompatActivity() {
 
         signUpBinding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(signUpBinding.root)
+        makeTermCondition()
         activitySignUpViewModel = ViewModelProvider(this).get(ActivitySignUpViewModel::class.java)
 
         signUpBinding.txtDob.setOnClickListener {
             DatePicker.showDatePicker(this) { selectedDate ->
-                val inputFormat = SimpleDateFormat("d/M/yyyy", Locale.getDefault())
+                /*val inputFormat = SimpleDateFormat("d/M/yyyy", Locale.getDefault())
 
 // formatter for your desired output format:
                 val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-                val date = inputFormat.parse(selectedDate)   // convert string → Date
-                val formattedDate = outputFormat.format(date!!)
+                val date = inputFormat.parse(selectedDate)*/   // convert string → Date
+                val formattedDate = Utils.dateFormatConveter(selectedDate)
                 signUpBinding.txtDob.setText(formattedDate)
             }
         }
@@ -154,8 +176,70 @@ class SignUpActivity : AppCompatActivity() {
         }
 
 
+
     }
 
+  fun  makeTermCondition(){
+      val spannableString = SpannableString("I accept all Terms and Condition ")
+      // val text = "I accept all"
+      val clickablePart = "Terms and Conditions"
+      val start = spannableString.indexOf("Terms")
+      if (start >= 0) {
+          val end = start + clickablePart.length
+          //val spannableString = SpannableString(text)
+          val clickableSpan: ClickableSpan = object : ClickableSpan() {
+              override fun onClick(@NonNull widget: View) {
+                 // Toast.makeText(widget.context, "Clicked!", Toast.LENGTH_SHORT).show()
+                  showPopUp(Constants.TERM_TEXT)
+              }
 
+              override fun updateDrawState(@NonNull ds: TextPaint) {
+                  super.updateDrawState(ds)
+                  ds.isUnderlineText = false // remove underline
+              }
+          }
+          spannableString.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+          spannableString.setSpan(ForegroundColorSpan(Color.RED), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+          spannableString.setSpan(UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+          signUpBinding.tvTermConditionText.setText(spannableString);
+          signUpBinding.tvTermConditionText.setMovementMethod(LinkMovementMethod.getInstance());
+          signUpBinding.tvTermConditionText.setHighlightColor(Color.TRANSPARENT);
+      }
+
+  }
+
+  fun showPopUp(str:String){
+
+      // Inflate your custom layout
+      val popupView: View = LayoutInflater.from(this).inflate(R.layout.popup_layout_term_condition ,
+          signUpBinding.main,false)
+
+     /* val params = popupView.layoutParams as MarginLayoutParams
+      if (params != null) {
+          params.setMargins(100, 40, 100, 50) // left, top, right, bottom in px
+          popupView.layoutParams = params
+      }*/
+
+
+      val popupWindow = PopupWindow(
+          popupView,
+          ViewGroup.LayoutParams.MATCH_PARENT,
+          ViewGroup.LayoutParams.WRAP_CONTENT,
+          true // focusable
+      )
+      val imgcross = popupView.findViewById<ImageView>(R.id.img_cross) // the view you tap on
+      val text = popupView.findViewById<TextView>(R.id.popupText)
+      text.text = Html.fromHtml(Constants.TERM_TEXT, Html.FROM_HTML_MODE_LEGACY)
+      //text.text = Constants.TERM_TEXT
+      text.movementMethod = ScrollingMovementMethod()
+      popupWindow.showAtLocation(signUpBinding.main, Gravity.CENTER, 0, 0);
+
+      popupWindow.isOutsideTouchable = false
+     // popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+     imgcross.setOnClickListener{
+         popupWindow.dismiss()
+     }
+  }
 
 }

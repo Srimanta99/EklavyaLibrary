@@ -17,6 +17,7 @@ import com.sm.mylibrary.model.notififation.NotificationDetails
 import com.sm.mylibrary.utils.Constants
 import com.sm.mylibrary.utils.SheardPreferenceViewModel
 import com.sm.mylibrary.view.fragments.HomeFragment
+import com.sm.mylibrary.view.fragments.ManageLeaveFragment
 import com.sm.mylibrary.view.fragments.ProfileFragment
 import com.sm.mylibrary.view.fragments.RefundFragment
 import com.sm.mylibrary.viewmodel.ActivityMainViewModel
@@ -120,7 +121,8 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 5 ->{
-                    Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
+                   // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
+                    loadFragment(ManageLeaveFragment())
                 }
                 6 ->{
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()

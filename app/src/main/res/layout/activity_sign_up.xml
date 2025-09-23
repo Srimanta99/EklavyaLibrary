@@ -391,19 +391,32 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
      </ScrollView>
 
+
     <CheckBox
         android:id="@+id/chk_term_condition"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sv"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_20sdp"
         android:layout_marginLeft="@dimen/_20sdp"
-        android:text="By Clicking this you accept all Terms Conditions"
-        app:layout_constraintRight_toRightOf="parent">
+        >
 
     </CheckBox>
+
+    <TextView
+        android:id="@+id/tv_term_condition_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/sv"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+
+        android:layout_marginLeft="@dimen/_3sdp"
+        app:layout_constraintLeft_toRightOf="@id/chk_term_condition"></TextView>
+
     <Button
         android:id="@+id/btn_signup"
         android:layout_width="@dimen/_100sdp"

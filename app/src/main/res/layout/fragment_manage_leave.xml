@@ -15,29 +15,32 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
+        android:visibility="gone"
         android:background="@drawable/back"></ImageView>
 
 
     <TextView
-        android:id="@+id/tv_notification"
+        android:id="@+id/tv_leave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:textColor="@color/white"
         android:gravity="center"
         android:textSize="@dimen/_13sdp"
-        android:text="Notification Details"></TextView>
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:text="Leave Details"></TextView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvNotifications"
+        android:id="@+id/rvLeaves"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_15sdp"
         android:background="@drawable/rectangle_with__black_broder"
-        app:layout_constraintTop_toBottomOf="@id/tv_notification"
+        app:layout_constraintTop_toBottomOf="@id/tv_leave"
+        android:visibility="gone"
         android:padding="@dimen/_8sdp"/>
-
     <TextView
         android:id="@+id/tv_nodata"
         android:layout_width="match_parent"
@@ -50,6 +53,5 @@
         android:textSize="@dimen/_13sdp"
         android:visibility="invisible"
         android:text="No Leave Found"></TextView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

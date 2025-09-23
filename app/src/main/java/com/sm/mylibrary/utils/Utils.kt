@@ -9,6 +9,8 @@ import android.provider.OpenableColumns
 import android.util.Base64
 import android.widget.ImageView
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 object Utils {
 
@@ -178,5 +180,17 @@ object Utils {
         }
 
         return Bitmap.createScaledBitmap(bitmap, finalWidth, finalHeight, true)
+    }
+
+
+    fun dateFormatConveter(selectedDate : String) : String{
+        val inputFormat = SimpleDateFormat("d/M/yyyy", Locale.getDefault())
+
+// formatter for your desired output format:
+        val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        val date = inputFormat.parse(selectedDate)   // convert string → Date
+        val formattedDate = outputFormat.format(date!!)
+        return formattedDate
     }
 }
