@@ -7,6 +7,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
@@ -102,7 +103,12 @@ class MainActivity : AppCompatActivity() {
         // Observe menu clicks
         activityMainViewModel.menuAction.observe(this) {
             when (it) {
-                0 -> loadFragment(HomeFragment())
+                0 -> {
+                    val fm = supportFragmentManager // or parentFragmentManager if inside a Fragment
+                    fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+                    loadFragment(HomeFragment())
+                }
                 1 -> loadFragment(ProfileFragment())
                 2 ->{
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()

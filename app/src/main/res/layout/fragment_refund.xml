@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#142551"
     android:orientation="vertical"
     android:layout_height="match_parent">
@@ -16,161 +17,312 @@
         android:textSize="@dimen/_13sdp"
         android:text="Refund Details"></TextView>
 
+    <TextView
+        android:id="@+id/tvno_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Details Found"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        android:gravity="center"></TextView>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:layout_height="@dimen/_300sdp">
+
 
     <LinearLayout
+        android:id="@+id/llrefund"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_15sdp"
+        android:visibility="invisible"
         android:background="@drawable/rounded_corner_with_black_broder"
         android:orientation="vertical">
 
         <TextView
-
+            android:id="@+id/tv_feestatement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="@dimen/_13sdp"
+            android:text="Fee Statement"></TextView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_7sdp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_feestatement">
+
+
+            <TextView
+                android:id="@+id/line"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:layout_constraintLeft_toLeftOf="parent"></TextView>
+
+
+
+            <TextView
+            android:id="@+id/sno"
+            android:layout_width="@dimen/_33sdp"
+            android:layout_height="wrap_content"
             android:text="S.no :"
+                android:layout_margin="@dimen/_3sdp"
+             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
 
             android:textColor="@color/white"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/Hline"
+                android:layout_width="@dimen/_33sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/sno"
+                app:layout_constraintLeft_toLeftOf="parent"></TextView>
 
         <TextView
             android:id="@+id/tvSNo"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_32sdp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_3sdp"
             android:textColor="@color/white"
             android:layout_marginTop="@dimen/_2sdp"
+            app:layout_constraintTop_toBottomOf="@+id/Hline"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:text=""
-            android:textSize="@dimen/_11sdp"
-             />
-        <TextView
+            android:textSize="@dimen/_11sdp" />
 
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/line1"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:layout_constraintLeft_toRightOf="@id/sno"></TextView>
+
+        <TextView
+            android:id="@+id/refund"
+            android:layout_width="@dimen/_55sdp"
             android:layout_height="wrap_content"
             android:text="Refund :"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_margin="@dimen/_3sdp"
             android:textColor="@color/white"
+            app:layout_constraintLeft_toRightOf="@id/line1"
+            app:layout_constraintTop_toTopOf="parent"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/Hline1"
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/refund"
+                app:layout_constraintLeft_toRightOf="@id/sno"></TextView>
 
-        <TextView
+
+
+            <TextView
             android:id="@+id/tvRefunds"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_55sdp"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
+            android:layout_margin="@dimen/_3sdp"
             android:layout_marginTop="@dimen/_2sdp"
-            android:text=""
+            app:layout_constraintTop_toBottomOf="@+id/Hline1"
+            android:text="fuygilyg liugiuhu"
+            app:layout_constraintLeft_toRightOf="@id/line1"
             android:textSize="@dimen/_11sdp"
             />
-        <TextView
 
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/line2"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:layout_constraintLeft_toRightOf="@id/refund"></TextView>
+
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="@dimen/_55sdp"
             android:layout_height="wrap_content"
             android:text="Amount :"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_margin="@dimen/_3sdp"
             android:textColor="@color/white"
+            app:layout_constraintLeft_toRightOf="@id/line2"
+            app:layout_constraintTop_toTopOf="parent"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/Hline2"
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/amount"
+                app:layout_constraintLeft_toRightOf="@id/refund"></TextView>
 
-        <TextView
+
+            <TextView
             android:id="@+id/tvAmount"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_55sdp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_3sdp"
             android:textColor="@color/white"
             android:layout_marginTop="@dimen/_2sdp"
-            android:text=""
+            android:text="jhgjhlguygliyg;iug"
+            app:layout_constraintLeft_toRightOf="@id/refund"
+            app:layout_constraintTop_toBottomOf="@id/Hline2"
             android:textSize="@dimen/_11sdp"
             />
 
         <TextView
+            android:id="@+id/line3"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:layout_constraintLeft_toRightOf="@id/amount"></TextView>
 
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/addon"
+            android:layout_width="@dimen/_65sdp"
             android:layout_height="wrap_content"
             android:text="Added On :"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_margin="@dimen/_3sdp"
             android:textColor="@color/white"
+            app:layout_constraintLeft_toRightOf="@id/line3"
+            app:layout_constraintTop_toTopOf="parent"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/Hline3"
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/addon"
+                app:layout_constraintLeft_toRightOf="@id/amount"></TextView>
 
-        <TextView
+
+
+            <TextView
             android:id="@+id/tvAddedOn"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_65sdp"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_marginTop="@dimen/_2sdp"
-            android:text=""
+            android:text="hgljhgh"
+            android:layout_margin="@dimen/_3sdp"
+                app:layout_constraintLeft_toRightOf="@id/amount"
+            app:layout_constraintTop_toBottomOf="@+id/Hline3"
             android:textSize="@dimen/_11sdp"
             />
-        <TextView
 
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/line4"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:layout_constraintLeft_toRightOf="@id/addon"></TextView>
+
+        <TextView
+            android:id="@+id/detail"
+            android:layout_width="@dimen/_50sdp"
             android:layout_height="wrap_content"
             android:text="Detail :"
-            android:layout_marginTop="@dimen/_10sdp"
             android:textColor="@color/white"
+            app:layout_constraintLeft_toRightOf="@id/line4"
+            app:layout_constraintTop_toTopOf="parent"
             android:textSize="@dimen/_12sdp"
+            android:layout_margin="@dimen/_3sdp"
             android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/Hline5"
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/detail"
+                app:layout_constraintLeft_toRightOf="@id/addon"></TextView>
 
-        <TextView
+
+
+            <TextView
             android:id="@+id/tvDetails"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_50sdp"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_marginTop="@dimen/_2sdp"
-
+            android:layout_margin="@dimen/_3sdp"
+            android:text="bjkkjkjbkjbkjbkj"
+            app:layout_constraintLeft_toRightOf="@id/line4"
+            app:layout_constraintTop_toBottomOf="@id/Hline5"
             android:textSize="@dimen/_11sdp"
             />
 
-        <TextView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Paid By :"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12sdp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/line5"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:layout_constraintLeft_toRightOf="@id/detail"></TextView>
 
 
-        <TextView
-            android:id="@+id/tvPaidby"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:layout_marginTop="@dimen/_2sdp"
+            <!-- <TextView
 
-            android:textSize="@dimen/_11sdp"
-            />
-
-        <TextView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Status :"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12sdp"
-            android:textStyle="bold" />
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="Paid By :"
+                 android:layout_marginTop="@dimen/_10sdp"
+                 android:textColor="@color/white"
+                 android:textSize="@dimen/_12sdp"
+                 android:textStyle="bold" />
 
 
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:layout_marginTop="@dimen/_2sdp"
+             <TextView
+                 android:id="@+id/tvPaidby"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/white"
+                 android:layout_marginTop="@dimen/_2sdp"
 
-            android:textSize="@dimen/_11sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            />
+                 android:textSize="@dimen/_11sdp"
+                 />
 
+             <TextView
+
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="Status :"
+                 android:layout_marginTop="@dimen/_10sdp"
+                 android:textColor="@color/white"
+                 android:textSize="@dimen/_12sdp"
+                 android:textStyle="bold" />
+
+
+             <TextView
+                 android:id="@+id/tvStatus"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/white"
+                 android:layout_marginTop="@dimen/_2sdp"
+
+                 android:textSize="@dimen/_11sdp"
+                 android:layout_marginBottom="@dimen/_5sdp"
+                 />-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
+    </HorizontalScrollView>
 
 </LinearLayout>

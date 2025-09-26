@@ -84,7 +84,7 @@ class ApplyLeaveActivity : AppCompatActivity() {
         }
 
         fun getDaysDifferenceOld(startDate: String, endDate: String): Long {
-            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
             val start = sdf.parse(startDate)
             val end = sdf.parse(endDate)

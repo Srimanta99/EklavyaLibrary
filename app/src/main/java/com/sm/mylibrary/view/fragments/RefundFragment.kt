@@ -73,13 +73,18 @@ class RefundFragment : Fragment() {
 
     private fun setValue(loginResponse: LoginResponse?) {
         if (loginResponse?.userDetail?.refid!=null) {
+            fragmentRefundBinding?.llrefund?.visibility = View.VISIBLE
+            fragmentRefundBinding?.tvnoDetails?.visibility = View.GONE
             fragmentRefundBinding?.tvSNo?.text = loginResponse?.userDetail?.refid.toString()
             fragmentRefundBinding?.tvRefunds?.text = loginResponse?.userDetail?.exp_type
             fragmentRefundBinding?.tvAmount?.text = loginResponse?.userDetail?.amount
             fragmentRefundBinding?.tvDetails?.text = loginResponse?.userDetail?.detail
-            fragmentRefundBinding?.tvPaidby?.text = loginResponse?.userDetail?.paid_by
-            fragmentRefundBinding?.tvStatus?.text = loginResponse?.userDetail?.refstatus
+           // fragmentRefundBinding?.tvPaidby?.text = loginResponse?.userDetail?.paid_by
+           // fragmentRefundBinding?.tvStatus?.text = loginResponse?.userDetail?.refstatus
             fragmentRefundBinding?.tvAddedOn?.text = loginResponse?.userDetail?.ref_date
+        }else {
+            fragmentRefundBinding?.tvnoDetails?.visibility = View.VISIBLE
+            fragmentRefundBinding?.llrefund?.visibility = View.GONE
         }
 
 
