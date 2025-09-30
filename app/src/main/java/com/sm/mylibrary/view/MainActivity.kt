@@ -1,9 +1,17 @@
 package com.sm.mylibrary.view
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -17,6 +25,7 @@ import com.sm.mylibrary.model.login.LoginResponse
 import com.sm.mylibrary.model.notififation.NotificationDetails
 import com.sm.mylibrary.utils.Constants
 import com.sm.mylibrary.utils.SheardPreferenceViewModel
+import com.sm.mylibrary.utils.Utils
 import com.sm.mylibrary.view.fragments.HomeFragment
 import com.sm.mylibrary.view.fragments.ManageLeaveFragment
 import com.sm.mylibrary.view.fragments.ProfileFragment
@@ -35,6 +44,7 @@ class MainActivity : AppCompatActivity() {
 
    // private lateinit var progressDialog: ProgressDialog
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -100,13 +110,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        activityMainBinding.tvDayPending.setOnClickListener {
+            val validtill = loginResponse?.userDetail?.lastDate
+           // val days = validtill?.let { it1 -> Utils.daysBetweenTodayAnd(it1) }
+            val days = Utils.daysBetweenTodayAnd("2025-10-07")
+            //Toast.makeText(this, "Days Left $days", Toast.LENGTH_SHORT).show()
+            showPopup(days.toString())
+
+        }
+
         // Observe menu clicks
         activityMainViewModel.menuAction.observe(this) {
             when (it) {
                 0 -> {
                     val fm = supportFragmentManager // or parentFragmentManager if inside a Fragment
                     fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-
                     loadFragment(HomeFragment())
                 }
                 1 -> loadFragment(ProfileFragment())
@@ -163,10 +181,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun showuserDetails() {
         activityMainBinding.tvUsername.setText("Welcome "+ loginResponse?.userDetail?.name)
         activityMainBinding.userEmail.setText(loginResponse?.userDetail?.email)
         activityMainBinding.userName.setText(loginResponse?.userDetail?.name)
+
+        val validtill = loginResponse?.userDetail?.lastDate
+        // val days = validtill?.let { it1 -> Utils.daysBetweenTodayAnd(it1) }
+        val days = Utils.daysBetweenTodayAnd("2025-10-07")
+        if (days>0){
+            activityMainBinding.tvDayPending.text = days.toString()
+        }else{
+            showPopupofDeActivatedAccount(days.toString())
+        }
+
 
         if (sheardPreferenceViewModel.loadData(Constants.PROFILE_IMAGE_PATH)!="") {
 
@@ -204,5 +233,76 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
+    }
+
+
+    private  fun showPopup( days : String){
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.pop_up_days_left, null)
+        val tvMessage = dialogView.findViewById<TextView>(R.id.popupText)
+        val imgcross = dialogView.findViewById<ImageView>(R.id.img_cross)
+        tvMessage.text = " Your  account will be suspended/deactivated, You have $days days left, Please Contact admin."
+        // Build dialog
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            /*.setPositiveButton("OK") { d, _ ->
+                d.dismiss()
+            }*/
+          //  .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
+            .create()
+
+        imgcross.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+
+
+    private  fun showPopupofDeActivatedAccount( days : String){
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.pop_up_days_left, null)
+        val tvMessage = dialogView.findViewById<TextView>(R.id.popupText)
+        val imgcross = dialogView.findViewById<ImageView>(R.id.img_cross)
+        tvMessage.text = " Your account Suspended, Please Contact admin."
+
+
+        // Build dialog
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            /*.setPositiveButton("OK") { d, _ ->
+                d.dismiss()
+            }*/
+            //  .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
+            .create()
+
+        imgcross.setOnClickListener {
+
+            dialog.dismiss()
+
+            val rememberStatus = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_STATUS)
+            val USERNAME = sheardPreferenceViewModel.loadData(Constants.REMEMBEME_USERNAME)
+            val PASSWORD = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_PASSWORD)
+
+
+
+            sheardPreferenceViewModel.clearPreferenceData()
+            sheardPreferenceViewModel.saveData(Constants.IS_LOGIN,"")
+
+            if (rememberStatus.equals("true")){
+                sheardPreferenceViewModel.saveData(Constants.REMEMBERME_STATUS, rememberStatus)
+                sheardPreferenceViewModel.saveData(Constants.REMEMBEME_USERNAME, USERNAME)
+                sheardPreferenceViewModel.saveData(Constants.REMEMBERME_PASSWORD, PASSWORD)
+            }else
+                sheardPreferenceViewModel.saveData(Constants.REMEMBERME_STATUS, "false")
+
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        }
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialog.show()
     }
 }

@@ -60,7 +60,6 @@
                         android:layout_width="@dimen/_17sdp"
                         android:layout_height="@dimen/_17sdp"
                         android:background="@drawable/rounded_green_with_whote_broder"
-
                         android:gravity="center"
                         android:textSize="@dimen/_9sdp"
                         app:layout_constraintRight_toRightOf="parent"
@@ -69,6 +68,22 @@
                         android:textStyle="bold"
                         android:text="1"
                         android:layout_gravity="right"></TextView>
+
+                    <TextView
+                        android:id="@+id/tv_day_pending"
+                        android:layout_width="@dimen/_33sdp"
+                        android:layout_height="@dimen/_33sdp"
+                        android:background="@drawable/rounded_red_with_whote_broder"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/img_notification"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_gravity="right"></TextView>
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -75,4 +75,9 @@ interface ApiService {
     suspend fun getLeaveData(@FieldMap fields: Map<String, String>): Response<ManageLeaveResponse>
 
 
+    @FormUrlEncoded
+    @POST("attandence.php?action=refund")
+    suspend fun refunds(@FieldMap fields: Map<String, String>): Response<RefundData>
+
+
 }

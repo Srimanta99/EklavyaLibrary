@@ -479,7 +479,7 @@
             android:layout_marginTop="@dimen/_7sdp"
             android:padding="@dimen/_5sdp"
             android:orientation="vertical"
-
+            android:visibility="gone"
             android:background="@drawable/rectangle_white">
 
             <TextView

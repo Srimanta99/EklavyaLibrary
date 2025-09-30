@@ -90,6 +90,7 @@ class SignUpActivity : AppCompatActivity() {
             activitySignUpViewModel.education.value = signUpBinding.txtEduquali.text.toString()
             activitySignUpViewModel.qualification.value = signUpBinding.txtEduquali.text.toString()
             activitySignUpViewModel.prepairFor.value =  signUpBinding.txtPrepare.text.toString()
+            activitySignUpViewModel.libraryCode.value = signUpBinding.txtSlot.text.toString()
 
             if (activitySignUpViewModel.validateFields()) {
               //  Toast.makeText(this, "Registration Successful.", Toast.LENGTH_SHORT).show()
@@ -107,6 +108,7 @@ class SignUpActivity : AppCompatActivity() {
                     requestData["salary"] = activitySignUpViewModel.prepairFor.value.toString()
                     requestData["password"] = activitySignUpViewModel.password.value.toString()
                     requestData["admin_type"] = "student"
+                    requestData["library_code"] = activitySignUpViewModel.libraryCode.value.toString()
                     requestData["timing"] = "I"
                     requestData["shiftin"] = activitySignUpViewModel.slot.value.toString()
                     requestData["vihno"] = activitySignUpViewModel.vehicleNumber.value.toString()

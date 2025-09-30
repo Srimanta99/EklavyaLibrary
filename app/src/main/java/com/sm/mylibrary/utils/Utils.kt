@@ -5,11 +5,17 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.os.Build
 import android.provider.OpenableColumns
 import android.util.Base64
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
+import java.util.Date
 import java.util.Locale
 
 object Utils {
@@ -193,4 +199,43 @@ object Utils {
         val formattedDate = outputFormat.format(date!!)
         return formattedDate
     }
+
+
+    fun changeDateFormat(inputDate: String?): String {
+        try {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+
+            val date: Date = inputFormat.parse(inputDate)
+            return outputFormat.format(date)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            return ""
+        }
+    }
+
+    fun changeDateFormatwithtime(inputDate: String?): String {
+        try {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault())
+
+            val date: Date = inputFormat.parse(inputDate)
+            return outputFormat.format(date)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            return ""
+        }
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun daysBetweenTodayAnd(targetDateString: String): Long {
+        // match your date format
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val today = LocalDate.now()
+        val targetDate = LocalDate.parse(targetDateString, formatter)
+        // number of days from today to target date
+        return ChronoUnit.DAYS.between(today, targetDate)
+    }
+
 }

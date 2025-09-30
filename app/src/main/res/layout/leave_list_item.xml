@@ -3,7 +3,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="@dimen/_5sdp"
-    android:background="@drawable/rounded_corner_button_with_no_broder"
+    android:id="@+id/rr_leave_list"
     android:padding="12dp">
 
 

@@ -80,8 +80,7 @@ class HomeFragment : Fragment() {
 
 
     // Launchers for gallery and camera
-    private val pickImageLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
                 imageUri = it
                 if (isImageprofile) {
@@ -89,7 +88,6 @@ class HomeFragment : Fragment() {
 //                    baSe64ofProfileImage = fragmentHomeBinding?.imgProfile?.let { it1 ->
 //                        Utils.imageViewToBase64(it1)
 //                    }
-//
 //                    Log.d("BASE64", baSe64ofProfileImage ?: "Conversion failed")
                     val base64String = ImageCompress.getCompressedBase64FromUri(requireActivity(), imageUri!!)
                     if (base64String != null) {
@@ -100,7 +98,6 @@ class HomeFragment : Fragment() {
                     }else{
                         Toast.makeText(activity, "Image compression failed", Toast.LENGTH_SHORT).show()
                     }
-
                     Log.d("Base64withconst", Constants.BASE64CONSTANT+ baSe64ofProfileImage.toString() ?: "Conversion failed")
                 }
                 if (aadharFrontSideClick) {
@@ -136,7 +133,6 @@ class HomeFragment : Fragment() {
                         requestDataAadharbackImageUpload["aadharback"] = Constants.BASE64CONSTANT + base64String.toString()
                         requestDataAadharbackImageUpload["filetype"] = "aadharback"
                         requestDataAadharbackImageUpload["uid"] = loginResponse?.userId.toString()
-
                         fragmentHomeViewModel.uploadAadharImage(requestDataAadharbackImageUpload)
                     }else{
                         Toast.makeText(activity, "Image compression failed", Toast.LENGTH_SHORT).show()
@@ -297,21 +293,20 @@ class HomeFragment : Fragment() {
 
     private fun setValue(loginResponse: LoginResponse?) {
         fragmentHomeBinding?.tvNameUser?.text = loginResponse?.userDetail?.name
-        fragmentHomeBinding?.tvDobUser?.text = loginResponse?.userDetail?.dob
+        fragmentHomeBinding?.tvDobUser?.text = Utils.changeDateFormat(loginResponse?.userDetail?.dob)
         fragmentHomeBinding?.tvSlot?.text = loginResponse?.userDetail?.shiftin
         if (loginResponse?.userDetail?.types!=null && loginResponse?.userDetail?.seat_no!=null) {
             fragmentHomeBinding?.tvSeatNo?.text = loginResponse?.userDetail?.types + " " + loginResponse?.userDetail?.seat_no
         }
+
         fragmentHomeBinding?.tvStdId?.text = "STD ID:  " + loginResponse?.userDetail?.ecode
-        fragmentHomeBinding?.tvValidDate?.text =   loginResponse?.userDetail?.lastDate
+        fragmentHomeBinding?.tvValidDate?.text =   Utils.changeDateFormat(loginResponse?.userDetail?.lastDate)
 
         fragmentHomeBinding?.tvLocationStudent?.text = loginResponse?.userDetail?.libraryaddress
         fragmentHomeBinding?.tvEklavyaStudyCenter?.text = loginResponse?.userDetail?.libraryname
         fragmentHomeBinding?.tvStatusValue?.text = loginResponse?.userDetail?.status
         fragmentHomeBinding?.tvWaitingStatus?.text = loginResponse?.message
         fragmentHomeBinding?.tvlocation?.text  = loginResponse?.userDetail?.libraryaddress
-
-
 
 
     }
@@ -372,6 +367,7 @@ class HomeFragment : Fragment() {
             setCancelable(false)
         }
 
+
         fragmentHomeViewModel.loading.observe(activity) { isLoading ->
             if (isLoading) progressDialog.show() else progressDialog.dismiss()
         }
@@ -410,31 +406,35 @@ class HomeFragment : Fragment() {
         }
 
 
-        if (sheardPreferenceViewModel.loadData(Constants.AADHAR_FRONT_IMAGE_PATH)!="") {
+       /* if (sheardPreferenceViewModel.loadData(Constants.AADHAR_FRONT_IMAGE_PATH)!="") {
 
             val imagePathFront = sheardPreferenceViewModel.loadData(Constants.AADHAR_FRONT_IMAGE_PATH)
             fragmentHomeBinding?.tvFrontImagename?.visibility = View.VISIBLE
             fragmentHomeBinding?.tvFrontImagename?.text = imagePathFront
 
-            /* Glide.with(this)
+            *//* Glide.with(this)
                  .load(imagePathFront)
                  .placeholder(R.drawable.placeholder) // optional
                  .error(R.drawable.placeholder)       // optional
-                 .into(fragmentHomeBinding?.imgAadharFront!!)*/
-        }
+                 .into(fragmentHomeBinding?.imgAadharFront!!)*//*
+        }*/
 
+/*
         if (sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH)!="") {
 
             val imagePathBack = sheardPreferenceViewModel.loadData(Constants.AADHAR_BACK_IMAGE_PATH)
             fragmentHomeBinding?.tvBackImagename?.visibility = View.VISIBLE
             fragmentHomeBinding?.tvBackImagename?.text = imagePathBack
 
-           /* Glide.with(this)
+           */
+/* Glide.with(this)
                 .load(imagePathBack)
                 .placeholder(R.drawable.placeholder) // optional
                 .error(R.drawable.placeholder)       // optional
-                .into(fragmentHomeBinding?.imgAadharBack!!)*/
+                .into(fragmentHomeBinding?.imgAadharBack!!)*//*
+
         }
+*/
 
 
         cropImageLauncher = registerForActivityResult(CropImageContract()) { result ->

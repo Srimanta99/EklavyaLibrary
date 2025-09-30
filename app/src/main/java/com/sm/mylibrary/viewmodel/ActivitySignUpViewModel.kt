@@ -45,6 +45,7 @@ class ActivitySignUpViewModel : ViewModel() {
     val vehicleNumber = MutableLiveData("")
     val education = MutableLiveData("")
     val password = MutableLiveData("")
+    val libraryCode = MutableLiveData("")
     val confirmPassword = MutableLiveData("")
     val validationMessage = MutableLiveData<String>()
 
@@ -128,40 +129,45 @@ class ActivitySignUpViewModel : ViewModel() {
             }
 
             slot.value.isEmpty() -> {
-                validationMessage.value = "Select  Slot"
+                validationMessage.value = "Please Select Slot."
                 false
             }
 
             vehicleNumber.value.isEmpty() -> {
-                validationMessage.value = "Vehicle number is required"
+                validationMessage.value = "Vehicle number is required."
+                false
+            }
+
+            libraryCode.value.isEmpty() -> {
+                validationMessage.value = "Library Code is required."
                 false
             }
 
             password.value.isEmpty() -> {
-                validationMessage.value = "Enter Password"
+                validationMessage.value = "Enter Password."
                 false
             }
 
 
             confirmPassword.value.isEmpty() -> {
-                validationMessage.value = "Enter Confirm Password"
+                validationMessage.value = "Enter Confirm Password."
                 false
             }
 
             !Patterns.EMAIL_ADDRESS.matcher(email.value.toString()).matches()-> {
-                validationMessage.value = "Invalid email"
+                validationMessage.value = "Invalid email."
                 false
             }
             !phone.value.toString().matches(Regex("^\\d{10}$")) -> {
-                validationMessage.value = "Invalid phone number"
+                validationMessage.value = "Invalid phone number."
                 false
             }
             password.value.length < 6 -> {
-                validationMessage.value = "Password too short"
+                validationMessage.value = "Password too short."
                 false
             }
             password.value != confirmPassword.value -> {
-                validationMessage.value = "Passwords do not match"
+                validationMessage.value = "Passwords do not match."
                 false
             }
 
