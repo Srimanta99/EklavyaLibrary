@@ -6,6 +6,8 @@ import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -14,9 +16,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -39,6 +43,7 @@ import com.sm.mylibrary.utils.SheardPreferenceViewModel
 import com.sm.mylibrary.utils.Utils
 import com.sm.mylibrary.view.ApplyLeaveActivity
 import com.sm.mylibrary.view.AttendenceActivity
+import com.sm.mylibrary.view.LoginActivity
 import com.sm.mylibrary.view.MainActivity
 import com.sm.mylibrary.viewmodel.FragmentHomeViewModel
 import java.io.File
@@ -324,6 +329,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -332,13 +338,22 @@ class HomeFragment : Fragment() {
         setValue(mainActivity?.loginResponse)
 
         fragmentHomeBinding?.rlApplyLeave?.setOnClickListener {
-            val intent = Intent(activity, ApplyLeaveActivity::class.java)
-            startActivity(intent)
+            if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
+                val intent = Intent(activity, ApplyLeaveActivity::class.java)
+                startActivity(intent)
+            }else{
+                Utils.showAlert(requireActivity(), "Your account is not Inactive, Please Contact admin.")
+            }
         }
 
         fragmentHomeBinding?.rlApplyAttendence?.setOnClickListener {
-            val intent = Intent(activity, AttendenceActivity::class.java)
-            startActivity(intent)
+            if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
+                val intent = Intent(activity, AttendenceActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                Utils.showAlert(requireActivity(), "Your account is not Inactive, Please Contact admin.")
+            }
         }
 
         fragmentHomeBinding?.imgProfile?.setOnClickListener {
@@ -405,6 +420,17 @@ class HomeFragment : Fragment() {
                 .into(fragmentHomeBinding?.imgProfile!!)
         }
 
+        val validtill = loginResponse?.userDetail?.validity
+        if (validtill == null){
+            showPopupofDeActivatedAccount("0")
+        }else {
+            val days =  Utils.daysBetweenTodayAnd(validtill)
+            // val days = Utils.daysBetweenTodayAnd("2025-10-07")
+            if (days <= 0) {
+                showPopupofDeActivatedAccount(days.toString())
+            }
+        }
+
 
        /* if (sheardPreferenceViewModel.loadData(Constants.AADHAR_FRONT_IMAGE_PATH)!="") {
 
@@ -469,6 +495,54 @@ class HomeFragment : Fragment() {
         fragmentHomeBinding = null // Avoid memory leaks
     }
 
+
+    private  fun showPopupofDeActivatedAccount( days : String){
+        val dialogView = LayoutInflater.from(requireActivity()).inflate(R.layout.pop_up_days_left, null)
+        val tvMessage = dialogView.findViewById<TextView>(R.id.popupText)
+        val imgcross = dialogView.findViewById<ImageView>(R.id.img_cross)
+        tvMessage.text = " Your account Inactive, Please Contact admin."
+
+
+        // Build dialog
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireActivity())
+            .setView(dialogView)
+            /*.setPositiveButton("OK") { d, _ ->
+                d.dismiss()
+            }*/
+            //  .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
+            .create()
+
+        imgcross.setOnClickListener {
+
+            dialog.dismiss()
+
+            val rememberStatus = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_STATUS)
+            val USERNAME = sheardPreferenceViewModel.loadData(Constants.REMEMBEME_USERNAME)
+            val PASSWORD = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_PASSWORD)
+
+
+
+            sheardPreferenceViewModel.clearPreferenceData()
+            sheardPreferenceViewModel.saveData(Constants.IS_LOGIN,"")
+
+            if (rememberStatus.equals("true")){
+                sheardPreferenceViewModel.saveData(Constants.REMEMBERME_STATUS, rememberStatus)
+                sheardPreferenceViewModel.saveData(Constants.REMEMBEME_USERNAME, USERNAME)
+                sheardPreferenceViewModel.saveData(Constants.REMEMBERME_PASSWORD, PASSWORD)
+            }else
+                sheardPreferenceViewModel.saveData(Constants.REMEMBERME_STATUS, "false")
+
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()
+        }
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialog.show()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         fragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)

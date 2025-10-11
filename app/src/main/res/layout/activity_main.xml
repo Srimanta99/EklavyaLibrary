@@ -339,7 +339,7 @@
 
                 <TextView
                     android:id="@+id/nav_Refunds"
-                    android:text="Refunds"
+                    android:text="Refunds &amp; Fees"
                     android:textSize="@dimen/_12sdp"
                     android:clickable="true"
                     android:focusable="true"

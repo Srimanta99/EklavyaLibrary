@@ -85,8 +85,7 @@ class MainActivity : AppCompatActivity() {
         val requestData = HashMap<String, String>()
         requestData["uid"] = loginResponse?.userId.toString()
         // requestData["name"] = "131"
-
-            activityMainViewModel.getnotification(requestData)
+        activityMainViewModel.getnotification(requestData)
 
         activityMainViewModel.notificationResult.observe(this){
             if(it.responsecode == "200"){
@@ -112,8 +111,8 @@ class MainActivity : AppCompatActivity() {
 
         activityMainBinding.tvDayPending.setOnClickListener {
             val validtill = loginResponse?.userDetail?.lastDate
-           // val days = validtill?.let { it1 -> Utils.daysBetweenTodayAnd(it1) }
-            val days = Utils.daysBetweenTodayAnd("2025-10-07")
+            val days = validtill?.let { it1 -> Utils.daysBetweenTodayAnd(it1) }
+          //  val days = Utils.daysBetweenTodayAnd("2025-10-07")
             //Toast.makeText(this, "Days Left $days", Toast.LENGTH_SHORT).show()
             showPopup(days.toString())
 
@@ -125,24 +124,38 @@ class MainActivity : AppCompatActivity() {
                 0 -> {
                     val fm = supportFragmentManager // or parentFragmentManager if inside a Fragment
                     fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
                     loadFragment(HomeFragment())
                 }
                 1 -> loadFragment(ProfileFragment())
                 2 ->{
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, AttendenceActivity::class.java)
-                    startActivity(intent)
+                    if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
+                        val intent = Intent(this, AttendenceActivity::class.java)
+                        startActivity(intent)
+                    }else{
+                        Utils.showAlert(this, "Your account is not Inactive, Please Contact admin.")
+                    }
 
                 }
                 3 ->{
-                    val intent = Intent(this, AttendenceActivity::class.java)
-                    startActivity(intent)
+
+                    if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
+                        val intent = Intent(this, AttendenceActivity::class.java)
+                        startActivity(intent)
+                    }else{
+                        Utils.showAlert(this, "Your account is not Inactive, Please Contact admin.")
+                    }
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
                 }
                 4 ->{
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, ApplyLeaveActivity::class.java)
-                    startActivity(intent)
+                    if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
+                        val intent = Intent(this, ApplyLeaveActivity::class.java)
+                        startActivity(intent)
+                    }else{
+                        Utils.showAlert(this, "Your account is not Inactive, Please Contact admin.")
+                    }
                 }
                 5 ->{
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
@@ -187,13 +200,17 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding.userEmail.setText(loginResponse?.userDetail?.email)
         activityMainBinding.userName.setText(loginResponse?.userDetail?.name)
 
-        val validtill = loginResponse?.userDetail?.lastDate
-        // val days = validtill?.let { it1 -> Utils.daysBetweenTodayAnd(it1) }
-        val days = Utils.daysBetweenTodayAnd("2025-10-07")
-        if (days>0){
-            activityMainBinding.tvDayPending.text = days.toString()
-        }else{
-            showPopupofDeActivatedAccount(days.toString())
+        val validtill = loginResponse?.userDetail?.validity
+        if (validtill == null){
+            showPopupofDeActivatedAccount("0")
+        }else {
+             val days =  Utils.daysBetweenTodayAnd(validtill)
+           // val days = Utils.daysBetweenTodayAnd("2025-10-07")
+            if (days >= 0) {
+                activityMainBinding.tvDayPending.text = days.toString()
+            } else {
+                showPopupofDeActivatedAccount(days.toString())
+            }
         }
 
 
@@ -262,7 +279,7 @@ class MainActivity : AppCompatActivity() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.pop_up_days_left, null)
         val tvMessage = dialogView.findViewById<TextView>(R.id.popupText)
         val imgcross = dialogView.findViewById<ImageView>(R.id.img_cross)
-        tvMessage.text = " Your account Suspended, Please Contact admin."
+        tvMessage.text = " Your account Inactive, Please Contact admin."
 
 
         // Build dialog

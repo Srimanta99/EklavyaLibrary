@@ -51,5 +51,5 @@ data class UserDetail (
   @SerializedName("refstatus"      )    var refstatus     :    String? = null,
   @SerializedName("detail"         )    var detail     :    String? = null,
   @SerializedName("paid_by"        )    var paid_by     :    String? = null,
-
+  @SerializedName("validity"      )    var validity     :    String? = null,
   )

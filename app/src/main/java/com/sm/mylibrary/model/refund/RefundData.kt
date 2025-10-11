@@ -4,4 +4,4 @@ data class RefundData(val responsecode : String,
 val status: String,
 val message: String,
 val fees_detail: ArrayList<FeesDetails>
-,val refund_detail : ArrayList<RefundDetails>)
+,val refund_detail : ArrayList<RefundDetail>)

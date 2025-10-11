@@ -10,6 +10,8 @@ import android.provider.OpenableColumns
 import android.util.Base64
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
+import com.sm.mylibrary.R
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -236,6 +238,16 @@ object Utils {
         val targetDate = LocalDate.parse(targetDateString, formatter)
         // number of days from today to target date
         return ChronoUnit.DAYS.between(today, targetDate)
+    }
+
+
+    fun showAlert(context: Context, message: String) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(context.getString(R.string.app_name))
+        builder.setMessage(message)
+        builder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
     }
 
 }
