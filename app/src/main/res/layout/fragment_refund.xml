@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/tv_apply_attendance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,14 +18,19 @@
         android:textStyle="bold"
         android:text="Refund &amp; Fees Details"></TextView>
 
+-->
+
+
+
     <TextView
         android:id="@+id/tvno_details"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="No Details Found"
+        android:layout_height="wrap_content"
+        android:text="No Statement Found"
         android:textColor="@color/white"
-        android:visibility="visible"
+        android:visibility="gone"
         android:textStyle="bold"
+  android:layout_marginTop="@dimen/_20sdp"
         android:gravity="center"></TextView>
 
   <!--  <HorizontalScrollView
@@ -431,7 +436,7 @@
 
             </TextView>
 
-            <LinearLayout
+           <!-- <LinearLayout
                 android:id="@+id/fview2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -450,7 +455,7 @@
                     android:textSize="@dimen/_12sdp"
                     android:textStyle="bold" />
 
-                <!-- <TextView
+                &lt;!&ndash; <TextView
                      android:id="@+id/Hline1"
                      android:layout_width="match_parent"
                      android:layout_height="@dimen/_1sdp"
@@ -465,8 +470,8 @@
                  android:layout_margin="@dimen/_3sdp"
                  android:layout_marginTop="@dimen/_2sdp"
 
-                 android:textSize="@dimen/_11sdp" />-->
-            </LinearLayout>
+                 android:textSize="@dimen/_11sdp" />&ndash;&gt;
+            </LinearLayout>-->
 
             <TextView
                 android:id="@+id/fline2"
@@ -486,7 +491,7 @@
                     android:id="@+id/famount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Fee Paid "
+                    android:text="Amount"
                     android:layout_margin="@dimen/_3sdp"
                     android:textColor="@color/white"
                     android:gravity="center"
@@ -575,7 +580,7 @@
                     android:id="@+id/fdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Remark "
+                    android:text="Fee type "
                     android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp"
                     android:gravity="center"
@@ -659,5 +664,19 @@
 
     </LinearLayout>
     </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_pay_now"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="Pay Now"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+
+        android:background="@drawable/green_rounded_corner_button_with_no_broder"
+        android:layout_gravity="center"></androidx.appcompat.widget.AppCompatButton>
+
 
 </LinearLayout>

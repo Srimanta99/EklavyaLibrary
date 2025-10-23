@@ -43,7 +43,6 @@ import com.sm.mylibrary.utils.SheardPreferenceViewModel
 import com.sm.mylibrary.utils.Utils
 import com.sm.mylibrary.view.ApplyLeaveActivity
 import com.sm.mylibrary.view.AttendenceActivity
-import com.sm.mylibrary.view.LoginActivity
 import com.sm.mylibrary.view.MainActivity
 import com.sm.mylibrary.viewmodel.FragmentHomeViewModel
 import java.io.File
@@ -420,7 +419,7 @@ class HomeFragment : Fragment() {
                 .into(fragmentHomeBinding?.imgProfile!!)
         }
 
-        val validtill = loginResponse?.userDetail?.validity
+        /*val validtill = loginResponse?.userDetail?.validity
         if (validtill == null){
             showPopupofDeActivatedAccount("0")
         }else {
@@ -429,7 +428,7 @@ class HomeFragment : Fragment() {
             if (days <= 0) {
                 showPopupofDeActivatedAccount(days.toString())
             }
-        }
+        }*/
 
 
        /* if (sheardPreferenceViewModel.loadData(Constants.AADHAR_FRONT_IMAGE_PATH)!="") {
@@ -516,7 +515,7 @@ class HomeFragment : Fragment() {
 
             dialog.dismiss()
 
-            val rememberStatus = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_STATUS)
+           /* val rememberStatus = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_STATUS)
             val USERNAME = sheardPreferenceViewModel.loadData(Constants.REMEMBEME_USERNAME)
             val PASSWORD = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_PASSWORD)
 
@@ -535,7 +534,7 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireActivity(), LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-            requireActivity().finish()
+            requireActivity().finish()*/
         }
         dialog.setCancelable(false)
         dialog.setCanceledOnTouchOutside(false)

@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".view.LoginActivity">
 
     <ImageView
@@ -136,4 +137,20 @@
         android:layout_marginRight="@dimen/_20sdp"
         android:textSize="@dimen/_11sdp"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_library_owners"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_25sdp"
+        android:textSize="@dimen/_10sdp"
+        android:text="ghg"
+        app:layout_constraintTop_toBottomOf="@id/txt_signup" >
+
+    </TextView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

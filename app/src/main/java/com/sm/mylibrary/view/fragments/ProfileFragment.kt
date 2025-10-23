@@ -69,6 +69,7 @@ class ProfileFragment : Fragment() {
             imageUri = it
             if (isImageprofile) {
                 fragmentProfileBinding?.profileImage?.setImageURI(it)
+
 //                    baSe64ofProfileImage = fragmentHomeBinding?.imgProfile?.let { it1 ->
 //                        Utils.imageViewToBase64(it1)
 //                    }
@@ -88,6 +89,7 @@ class ProfileFragment : Fragment() {
                 fragmentProfileBinding?.tvFrontImagename?.visibility = View.VISIBLE
                 fragmentProfileBinding?.cardFront?.visibility = View.VISIBLE
                 fragmentProfileBinding?.imageAdadharFrontside?.setImageURI(it)
+                fragmentProfileBinding?.progressBarAadhar?.visibility = View.GONE
 //                    baSe64ofAadharFrontImage = fragmentHomeBinding?.imgAadharFront?.let { it1 ->
 //                        Utils.imageViewToBase64(it1)
 //                    }
@@ -108,6 +110,8 @@ class ProfileFragment : Fragment() {
                 fragmentProfileBinding?.tvBackImagename?.visibility = View.VISIBLE
                 fragmentProfileBinding?.cardBack?.visibility = View.VISIBLE
                 fragmentProfileBinding?.imageAdadharBackside?.setImageURI(it)
+                fragmentProfileBinding?.progressBarAadharBack?.visibility = View.GONE
+
 //                    baSe64ofAadharBackImage = fragmentHomeBinding?.imgAadharBack?.let { it1 ->
 //                        Utils.imageViewToBase64(it1)
 //                    }
@@ -159,6 +163,8 @@ class ProfileFragment : Fragment() {
 
                         fragmentProfileBinding?.cardFront?.visibility = View.VISIBLE
                         fragmentProfileBinding?.imageAdadharFrontside?.setImageURI(it)
+                        fragmentProfileBinding?.progressBarAadhar?.visibility = View.GONE
+
 //                        baSe64ofAadharFrontImage = fragmentHomeBinding?.imgAadharFront?.let { it1 ->
 //                            Utils.imageViewToBase64(it1)
 //                        }
@@ -192,6 +198,8 @@ class ProfileFragment : Fragment() {
                         fragmentProfileBinding?.tvBackImagename?.visibility = View.VISIBLE
                         fragmentProfileBinding?.cardBack?.visibility = View.VISIBLE
                         fragmentProfileBinding?.imageAdadharBackside?.setImageURI(it)
+                        fragmentProfileBinding?.progressBarAadharBack?.visibility = View.GONE
+
 //                        baSe64ofAadharBackImage = fragmentHomeBinding?.imgAadharBack?.let { it1 ->
 //                            Utils.imageViewToBase64(it1)
 //                        }

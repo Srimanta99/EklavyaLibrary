@@ -125,7 +125,7 @@
         android:gravity="center"
         android:textSize="@dimen/_13sdp"
         android:textStyle="bold"
-        android:textColor="#41435C"
+        android:textColor="#0c0e12"
         app:layout_constraintTop_toBottomOf="@id/img_banner_top"></TextView>
 
     <TextView
@@ -135,6 +135,7 @@
         android:layout_marginTop="@dimen/_2sdp"
         android:text="Perfect Place for all student"
         android:gravity="center"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/_9sdp"></TextView>
 
 
@@ -145,7 +146,7 @@
         android:layout_marginTop="@dimen/_2sdp"
         android:text="Rudrapur, U. S. Nagar, Uttarakhand - 263153"
         android:gravity="center"
-        android:textColor="#869288"
+        android:textColor="#161716"
         android:textSize="@dimen/_11sdp"></TextView>
 
 
@@ -189,9 +190,10 @@
               android:gravity="right"
 
               android:text="STD ID :"
-              android:textColor="#ACACAC"
+              android:textColor="@color/text_color"
               app:layout_constraintLeft_toLeftOf="parent"
               android:layout_marginLeft="@dimen/_15sdp"
+
               app:layout_constraintTop_toBottomOf="@+id/img_profile"
               ></TextView>
 
@@ -205,7 +207,7 @@
 
             android:text="STATUS:"
             android:textStyle="bold"
-
+            android:textColor="#0c0e12"
             android:layout_marginLeft="@dimen/_15sdp"
             app:layout_constraintLeft_toRightOf="@id/tv_std_id"
             app:layout_constraintTop_toBottomOf="@+id/img_profile"
@@ -221,7 +223,7 @@
 
             android:text="Inactive"
             android:textAllCaps="true"
-            android:textColor="#B46471"
+            android:textColor="#b04937"
             android:layout_marginLeft="@dimen/_2sdp"
             app:layout_constraintLeft_toRightOf="@id/tv_status"
             app:layout_constraintTop_toBottomOf="@+id/img_profile"
@@ -255,7 +257,8 @@
               app:layout_constraintTop_toTopOf="parent"
              app:layout_constraintLeft_toRightOf="@id/name"
               android:textSize="@dimen/_9sdp"
-              android:text="Sumit Raj"></TextView>
+              android:textColor="@color/text_color"
+              android:text=""></TextView>
 
 
           <TextView
@@ -275,9 +278,10 @@
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/_5sdp"
               android:textSize="@dimen/_9sdp"
+              android:textColor="@color/text_color"
               app:layout_constraintTop_toBottomOf="@id/tv_name_user"
               app:layout_constraintLeft_toRightOf="@id/dob"
-              android:text="12/09/1980"></TextView>
+              android:text=""></TextView>
 
 
           <TextView
@@ -299,7 +303,8 @@
               app:layout_constraintTop_toBottomOf="@id/tv_dob_user"
               app:layout_constraintLeft_toRightOf="@id/dob"
               android:textSize="@dimen/_9sdp"
-              android:text="3 P.M to 5 P.M"></TextView>
+              android:textColor="@color/text_color"
+              android:text=""></TextView>
 
 
           <TextView
@@ -321,7 +326,8 @@
               app:layout_constraintLeft_toRightOf="@id/seat"
               android:textSize="@dimen/_9sdp"
               android:layout_marginTop="@dimen/_5sdp"
-              android:text="uu"></TextView>
+              android:textColor="@color/text_color"
+              ></TextView>
 
 
             <TextView
@@ -343,7 +349,8 @@
                 app:layout_constraintLeft_toRightOf="@id/validdate"
                 android:textSize="@dimen/_9sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text="uu"></TextView>
+                android:textColor="@color/text_color"
+                android:text=""></TextView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
        <!-- <Button
@@ -381,8 +388,9 @@
             android:gravity="center"
             android:text="(WAITING FOR APPROVAL)"
             android:textSize="@dimen/_10sdp"
-            android:textColor="#B46471"
+            android:textColor="#b04937"
             android:layout_marginBottom="@dimen/_4sdp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/ing_bro_bottom"></TextView>
 
 

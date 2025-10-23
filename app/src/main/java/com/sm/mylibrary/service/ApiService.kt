@@ -47,7 +47,7 @@ interface ApiService {
     suspend fun applyPunchIn(@FieldMap fields: Map<String, String>): Response<PunchInResponse>
 
     @FormUrlEncoded
-    @POST("attandence.php?action=punchin")
+    @POST("attandence.php?action=punchout")
     suspend fun applyPunchOut(@FieldMap fields: Map<String, String>): Response<PunchInResponse>
 
     @FormUrlEncoded

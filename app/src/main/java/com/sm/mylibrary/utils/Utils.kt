@@ -248,6 +248,8 @@ object Utils {
         builder.setPositiveButton("OK") { dialog, _ ->
             dialog.dismiss()
         }
+        val dialog = builder.create()
+        dialog.show()
     }
 
 }

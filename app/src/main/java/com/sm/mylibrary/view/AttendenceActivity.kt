@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
+import com.sm.mylibrary.R
 import com.sm.mylibrary.databinding.ActivityAttendenceBinding
 import com.sm.mylibrary.model.login.LoginResponse
 import com.sm.mylibrary.utils.Constants
@@ -97,19 +98,24 @@ class AttendenceActivity : AppCompatActivity() {
             requestData["action"] = "punchout"
             requestData["seat_type"] = "Fixed"
             requestData["seat_no"] = "B-26"
-            activityAttendanceViewModel.applyPunchIn(requestData)
+            activityAttendanceViewModel.applyPunchOut(requestData)
         }
 
-
-        activityAttendanceViewModel.validationMessage.observe(this) {
-            if (it != "Success") {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-            }
-        }
 
         activityAttendanceViewModel.applyPunchinResult.observe(this) {
-            if (it != null) {
+            if (it.status.equals("success")) {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                activityAttendenceBindingBinding.rlApplyPunchin.background =  getDrawable(R.drawable.green_rounded_corner_button_with_no_broder)
+
+            }
+
+        }
+
+        activityAttendanceViewModel.applyPunchOutResult.observe(this) {
+            if (it.status.equals("success")) {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                activityAttendenceBindingBinding.rlApplyPunchout.background =  getDrawable(R.drawable.red_rounded_corner_button_with_no_broder)
+
             }
 
 //            if (it.responsecode.equals("200")) {

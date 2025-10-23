@@ -4,10 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sm.mylibrary.model.applyleave.ApplyLeaveResponse
 import com.sm.mylibrary.model.attendance.PunchInResponse
 import com.sm.mylibrary.repository.ApplyAttendenceRepository
-import com.sm.mylibrary.repository.ApplyLeaveRepository
 import kotlinx.coroutines.launch
 
 class ActivityAttendanceViewModel : ViewModel() {
@@ -23,6 +21,13 @@ class ActivityAttendanceViewModel : ViewModel() {
 
     private val _applyPunchResult = MutableLiveData<PunchInResponse>()
     val applyPunchinResult: LiveData<PunchInResponse> get() = _applyPunchResult
+
+
+    private val _applyPunchOutResult = MutableLiveData<PunchInResponse>()
+    val applyPunchOutResult: LiveData<PunchInResponse> get() = _applyPunchOutResult
+
+
+
 
     val repository = ApplyAttendenceRepository()
 
@@ -64,7 +69,7 @@ class ActivityAttendanceViewModel : ViewModel() {
                 val response = repository.ApplyPunchOut(applyLeaveRequest)
                 if (response.isSuccessful && response.body() != null) {
                     _loading.value =  false
-                    _applyPunchResult.postValue(response.body())
+                    _applyPunchOutResult.postValue(response.body())
                     // validationMessage.value = response.body()!!.message
                 } else {
                     _loading.value =  false

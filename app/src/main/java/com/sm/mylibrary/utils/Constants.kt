@@ -19,6 +19,7 @@ class Constants {
         const val REMEMBERME_PASSWORD = "REMEMBERME_PASSWORD"
         const val REMEMBERME_STATUS = "REMEMBERME_STATUS"
         const val ACTIVE = "Active"
+        const val LIBRARY_OWNER = "https://eklavyastudy.com/web/enquiry.php"
         const val TERM_TEXT =  "<p><b>Terms and Conditions of Registration</b><br>" +
         "1. Acceptance of Terms<br>" +
         "By registering on this platform, you agree to comply with and be bound by these Terms and Conditions. If you do not agree, please refrain from registering or using the services.<br><br>" +

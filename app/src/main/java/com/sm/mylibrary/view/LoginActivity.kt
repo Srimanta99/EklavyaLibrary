@@ -2,9 +2,20 @@ package com.sm.mylibrary.view
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.UnderlineSpan
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
@@ -30,6 +41,8 @@ class LoginActivity : AppCompatActivity() {
         loginViewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(loginViewBinding.root)
         loginViewModel = ViewModelProvider(this).get(ActivityLoginViewModel::class.java)
+
+        showLibraryOwner()
 
         progressDialog = ProgressDialog(this).apply {
             setMessage("Please wait...")
@@ -114,5 +127,42 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
+
     }
+
+
+    fun  showLibraryOwner(){
+        val spannableString = SpannableString("For Library Owners, Click Here")
+        // val text = "I accept all"
+        val clickablePart = "Click Here"
+        val start = spannableString.indexOf("Click")
+        Log.e("owner", start.toString())
+        if (start >= 0) {
+            val end = start + clickablePart.length
+            //val spannableString = SpannableString(text)
+            val clickableSpan: ClickableSpan = object : ClickableSpan() {
+                override fun onClick(@NonNull widget: View) {
+                    // Toast.makeText(widget.context, "Clicked!", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this@LoginActivity, LibraryOwnerActivity::class.java))
+                }
+
+                override fun updateDrawState(@NonNull ds: TextPaint) {
+                    super.updateDrawState(ds)
+                    ds.isUnderlineText = false // remove underline
+                }
+            }
+            Log.e("owner1", start.toString())
+            spannableString.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(ForegroundColorSpan(Color.BLUE), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            Log.e("owner2", start.toString())
+            loginViewBinding.tvLibraryOwners.setText(spannableString);
+            loginViewBinding.tvLibraryOwners.setMovementMethod(LinkMovementMethod.getInstance());
+            loginViewBinding.tvLibraryOwners.setHighlightColor(Color.BLACK);
+            Log.e("owner3", start.toString())
+
+        }
+
+    }
+
 }

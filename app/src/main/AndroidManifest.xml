@@ -22,7 +22,15 @@
         android:roundIcon="@mipmap/app_icon_image"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyLibrary"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".view.QRCodeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MyLibrary" />
+        <activity
+            android:name=".view.LibraryOwnerActivity"
+            android:exported="false" />
         <activity
             android:name=".view.ActivityNotification"
             android:exported="false" />

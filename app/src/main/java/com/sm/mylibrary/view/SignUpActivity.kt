@@ -53,6 +53,7 @@ class SignUpActivity : AppCompatActivity() {
         signUpBinding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(signUpBinding.root)
         makeTermCondition()
+        showLibraryOwner()
         activitySignUpViewModel = ViewModelProvider(this).get(ActivitySignUpViewModel::class.java)
 
         signUpBinding.txtDob.setOnClickListener {
@@ -209,6 +210,38 @@ class SignUpActivity : AppCompatActivity() {
       }
 
   }
+
+
+    fun  showLibraryOwner(){
+        val spannableString = SpannableString("For Library Owners, Click Here")
+        // val text = "I accept all"
+        val clickablePart = "Click Here"
+        val start = spannableString.indexOf("Click")
+        if (start >= 0) {
+            val end = start + clickablePart.length
+            //val spannableString = SpannableString(text)
+            val clickableSpan: ClickableSpan = object : ClickableSpan() {
+                override fun onClick(@NonNull widget: View) {
+                    // Toast.makeText(widget.context, "Clicked!", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this@SignUpActivity, LibraryOwnerActivity::class.java))
+                }
+
+                override fun updateDrawState(@NonNull ds: TextPaint) {
+                    super.updateDrawState(ds)
+                    ds.isUnderlineText = false // remove underline
+                }
+            }
+
+            spannableString.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(ForegroundColorSpan(Color.BLUE), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            signUpBinding.tvLibraryOwner.setText(spannableString);
+            signUpBinding.tvLibraryOwner.setMovementMethod(LinkMovementMethod.getInstance());
+            signUpBinding.tvLibraryOwner.setHighlightColor(Color.BLACK);
+
+        }
+
+    }
 
   fun showPopUp(str:String){
 

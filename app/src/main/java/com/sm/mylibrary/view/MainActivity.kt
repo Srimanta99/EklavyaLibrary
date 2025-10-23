@@ -1,11 +1,13 @@
 package com.sm.mylibrary.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -13,6 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -93,6 +96,7 @@ class MainActivity : AppCompatActivity() {
                 for ( i in 0 until it.notification.size){
                     notificationCount.add(it.notification[i])
                 }
+
                 activityMainBinding.tvNotificationCount.text = notificationCount.size.toString()
             }
         }
@@ -100,6 +104,8 @@ class MainActivity : AppCompatActivity() {
 
         activityMainBinding.imgNotification.setOnClickListener {
             if(notificationCount.size>0) {
+                activityMainBinding.tvNotificationCount.text = "0"
+                activityMainBinding.tvNotificationCount.visibility = View.INVISIBLE
                 val intent = Intent(this, ActivityNotification::class.java)
                 intent.putExtra("notification", notificationCount!!)
                 startActivity(intent)
@@ -110,11 +116,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         activityMainBinding.tvDayPending.setOnClickListener {
-            val validtill = loginResponse?.userDetail?.lastDate
-            val days = validtill?.let { it1 -> Utils.daysBetweenTodayAnd(it1) }
-          //  val days = Utils.daysBetweenTodayAnd("2025-10-07")
-            //Toast.makeText(this, "Days Left $days", Toast.LENGTH_SHORT).show()
-            showPopup(days.toString())
+            if (loginResponse?.userDetail?.validity!= null) {
+                val validtill = loginResponse?.userDetail?.validity
+                val days = validtill?.let { it1 -> Utils.daysBetweenTodayAnd(it1) }
+                //  val days = Utils.daysBetweenTodayAnd("2025-10-07")
+                //Toast.makeText(this, "Days Left $days", Toast.LENGTH_SHORT).show()
+                showPopup(days.toString())
+            }else{
+                showPopupofDeActivatedAccount("0")
+            }
 
         }
 
@@ -128,14 +138,15 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(HomeFragment())
                 }
                 1 -> loadFragment(ProfileFragment())
+
                 2 ->{
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
                     if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
                         val intent = Intent(this, AttendenceActivity::class.java)
                         startActivity(intent)
-                    }else{
-                        Utils.showAlert(this, "Your account is not Inactive, Please Contact admin.")
-                    }
+                    }/*else{
+                        Utils.showAlert(this, "Your account is Inactive, Please Contact admin.")
+                    }*/
 
                 }
                 3 ->{
@@ -143,9 +154,9 @@ class MainActivity : AppCompatActivity() {
                     if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
                         val intent = Intent(this, AttendenceActivity::class.java)
                         startActivity(intent)
-                    }else{
+                    }/*else{
                         Utils.showAlert(this, "Your account is not Inactive, Please Contact admin.")
-                    }
+                    }*/
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
                 }
                 4 ->{
@@ -153,19 +164,39 @@ class MainActivity : AppCompatActivity() {
                     if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
                         val intent = Intent(this, ApplyLeaveActivity::class.java)
                         startActivity(intent)
-                    }else{
-                        Utils.showAlert(this, "Your account is not Inactive, Please Contact admin.")
-                    }
+                    }/*else{
+                        Utils.showAlert(this, "Your account is Inactive, Please Contact admin.")
+                    }*/
                 }
                 5 ->{
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
-                    loadFragment(ManageLeaveFragment())
+                    if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
+                        loadFragment(ManageLeaveFragment())
+                    }
+                    /*else{
+                        Utils.showAlert(this, "Your account is Inactive, Please Contact admin.")
+                    }*/
                 }
                 6 ->{
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
-                    loadFragment(RefundFragment())
+                    if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
+                        loadFragment(RefundFragment())
+                    }/*else{
+                        Utils.showAlert(this, "Your account is Inactive, Please Contact admin.")
+                    }*/
                 }
-                7 -> {
+
+                7 ->{
+                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
+                   // if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
+
+                        val intent = Intent(this, QRCodeActivity::class.java)
+                        startActivity(intent)
+                  //  }/*else{
+                        Utils.showAlert(this, "Your account is Inactive, Please Contact admin.")
+                   // }*/
+                }
+                8 -> {
                     Toast.makeText(this, "Successfully Logged out", Toast.LENGTH_SHORT).show()
 
                     val rememberStatus = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_STATUS)
@@ -275,10 +306,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private  fun showPopupofDeActivatedAccount( days : String){
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.pop_up_days_left, null)
+    @SuppressLint("MissingInflatedId")
+    private  fun showPopupofDeActivatedAccount(days : String){
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.pop_up_days_left_and_pay, null)
         val tvMessage = dialogView.findViewById<TextView>(R.id.popupText)
         val imgcross = dialogView.findViewById<ImageView>(R.id.img_cross)
+        val paybutton = dialogView.findViewById<AppCompatButton>(R.id.btn_pay_now)
         tvMessage.text = " Your account Inactive, Please Contact admin."
 
 
@@ -291,11 +324,15 @@ class MainActivity : AppCompatActivity() {
             //  .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
             .create()
 
+        paybutton.setOnClickListener {
+            startActivity(Intent(this, QRCodeActivity::class.java))
+        }
+
         imgcross.setOnClickListener {
 
             dialog.dismiss()
 
-            val rememberStatus = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_STATUS)
+           /* val rememberStatus = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_STATUS)
             val USERNAME = sheardPreferenceViewModel.loadData(Constants.REMEMBEME_USERNAME)
             val PASSWORD = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_PASSWORD)
 
@@ -314,7 +351,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-            finish()
+            finish()*/
         }
         dialog.setCancelable(false)
         dialog.setCanceledOnTouchOutside(false)
