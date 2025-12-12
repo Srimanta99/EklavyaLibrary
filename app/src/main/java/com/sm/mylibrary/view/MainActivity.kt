@@ -21,6 +21,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.gson.Gson
 import com.sm.mylibrary.R
 import com.sm.mylibrary.databinding.ActivityMainBinding
@@ -44,6 +48,8 @@ class MainActivity : AppCompatActivity() {
     var loginResponse : LoginResponse? = null
 
      var notificationCount = ArrayList<NotificationDetails>()
+    private lateinit var appUpdateManager: AppUpdateManager
+    private val UPDATE_REQUEST_CODE = 100
 
    // private lateinit var progressDialog: ProgressDialog
 
@@ -139,14 +145,14 @@ class MainActivity : AppCompatActivity() {
                 }
                 1 -> loadFragment(ProfileFragment())
 
-                2 ->{
+               /* 2 ->{
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
                     if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
                         val intent = Intent(this, AttendenceActivity::class.java)
                         startActivity(intent)
-                    }/*else{
+                    }*//*else{
                         Utils.showAlert(this, "Your account is Inactive, Please Contact admin.")
-                    }*/
+                    }*//*
 
                 }
                 3 ->{
@@ -154,9 +160,9 @@ class MainActivity : AppCompatActivity() {
                     if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
                         val intent = Intent(this, AttendenceActivity::class.java)
                         startActivity(intent)
-                    }/*else{
+                    }*//*else{
                         Utils.showAlert(this, "Your account is not Inactive, Please Contact admin.")
-                    }*/
+                    }*//*
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
                 }
                 4 ->{
@@ -164,11 +170,11 @@ class MainActivity : AppCompatActivity() {
                     if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
                         val intent = Intent(this, ApplyLeaveActivity::class.java)
                         startActivity(intent)
-                    }/*else{
+                    }*//*else{
                         Utils.showAlert(this, "Your account is Inactive, Please Contact admin.")
-                    }*/
-                }
-                5 ->{
+                    }*//*
+                }*/
+                2 ->{
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
                     if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
                         loadFragment(ManageLeaveFragment())
@@ -177,7 +183,7 @@ class MainActivity : AppCompatActivity() {
                         Utils.showAlert(this, "Your account is Inactive, Please Contact admin.")
                     }*/
                 }
-                6 ->{
+                3 ->{
                    // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
                     if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
                         loadFragment(RefundFragment())
@@ -186,17 +192,17 @@ class MainActivity : AppCompatActivity() {
                     }*/
                 }
 
-                7 ->{
+                4 ->{
                     // Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
                    // if (loginResponse?.userDetail?.status .equals(Constants.ACTIVE)) {
 
                         val intent = Intent(this, QRCodeActivity::class.java)
                         startActivity(intent)
                   //  }/*else{
-                        Utils.showAlert(this, "Your account is Inactive, Please Contact admin.")
+                      //  Utils.showAlert(this, "Your account is Inactive, Please Contact admin.")
                    // }*/
                 }
-                8 -> {
+                5 -> {
                     Toast.makeText(this, "Successfully Logged out", Toast.LENGTH_SHORT).show()
 
                     val rememberStatus = sheardPreferenceViewModel.loadData(Constants.REMEMBERME_STATUS)
@@ -224,6 +230,17 @@ class MainActivity : AppCompatActivity() {
             activityMainBinding.drawerLayout.closeDrawers()
         }
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onResume() {
+        super.onResume()
+       // showuserDetails()
+        checkForUpdate()
+    }
+
+
+
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun showuserDetails() {
@@ -312,7 +329,7 @@ class MainActivity : AppCompatActivity() {
         val tvMessage = dialogView.findViewById<TextView>(R.id.popupText)
         val imgcross = dialogView.findViewById<ImageView>(R.id.img_cross)
         val paybutton = dialogView.findViewById<AppCompatButton>(R.id.btn_pay_now)
-        tvMessage.text = " Your account Inactive, Please Contact admin."
+        tvMessage.text = " Your account Validity expired, Please Contact admin."
 
 
         // Build dialog
@@ -359,4 +376,27 @@ class MainActivity : AppCompatActivity() {
 
         dialog.show()
     }
+
+    private fun checkForUpdate() {
+        appUpdateManager = AppUpdateManagerFactory.create(this)
+
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+       // Log.d("version", appUpdateInfoTask.result.availableVersionCode().toString())
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
+                // Immediate update popup
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    AppUpdateType.IMMEDIATE,
+                    this,
+                    UPDATE_REQUEST_CODE
+                )
+            }
+        }
+    }
+
+
 }

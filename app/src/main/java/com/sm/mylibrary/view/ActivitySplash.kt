@@ -16,7 +16,9 @@ class ActivitySplash : AppCompatActivity() {
     val sheardPreferenceViewModel = SheardPreferenceViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
+
         setContentView(R.layout.activity_splash)
         Handler().postDelayed(Runnable {
 

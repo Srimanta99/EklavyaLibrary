@@ -1,6 +1,7 @@
 package com.sm.mylibrary.view.fragments
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.sm.mylibrary.model.refund.FeesDetails
 import com.sm.mylibrary.model.refund.RefundDetail
 import com.sm.mylibrary.utils.Constants
 import com.sm.mylibrary.utils.SheardPreferenceViewModel
+import com.sm.mylibrary.view.QRCodeActivity
 import com.sm.mylibrary.viewmodel.FragmentRefundViewModel
 
 class RefundFragment : Fragment() {
@@ -73,6 +75,10 @@ class RefundFragment : Fragment() {
                  Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
              }
          }
+
+        fragmentRefundBinding?.btnPayNow?.setOnClickListener {
+            startActivity(Intent(activity, QRCodeActivity::class.java))
+        }
 
          fragmentRefundViewModel.refundResult.observe(viewLifecycleOwner) { refundResponse ->
              Log.d("refundResponse", refundResponse.toString())

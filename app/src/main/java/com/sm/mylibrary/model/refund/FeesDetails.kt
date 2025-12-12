@@ -15,5 +15,7 @@ data class FeesDetails(val id: Int,
                        val online: Int,
                        val approval: String,
                        val adminid: Int,
-                       val addedon: String) {
+                       val addedon: String,
+                       val approve_date : String,
+                        val month_abbr : String) {
 }

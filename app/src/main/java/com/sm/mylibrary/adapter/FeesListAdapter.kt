@@ -1,5 +1,6 @@
 package com.sm.mylibrary.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,8 @@ class FeesListAdapter(private val items: ArrayList<FeesDetails>) : RecyclerView.
         val tvamountpaid: TextView = itemView.findViewById(R.id.fees_amount_paid)
         val tvmode: TextView = itemView.findViewById(R.id.mode)
         val tvremarks: TextView = itemView.findViewById(R.id.remarks)
+        val monthName  : TextView = itemView.findViewById(R.id.monthname)
+
 
     }
 
@@ -27,13 +30,15 @@ class FeesListAdapter(private val items: ArrayList<FeesDetails>) : RecyclerView.
         return RefundViewHolder(view)
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onBindViewHolder(holder: RefundViewHolder, position: Int) {
         val item = items[position]
      //   holder.tvMsgType.text = item.msg_type
        // holder.tvMsg.text = item.msg
        // holder.tvAddedOn.text = item.added_on
        // holder.tvStatus.text = item.status
-        holder.tvdate.text = Utils.changeDateFormat(item.from_date)
+        if (item.from_date != null && item.from_date.isNotEmpty())
+          holder.tvdate.text = Utils.changeDateFormat(item.from_date)
       //  holder.tvrefund.text = item.status
         holder.tvamountpaid.text = item.online.toString()
         if (item.cash ==0)
@@ -43,7 +48,12 @@ class FeesListAdapter(private val items: ArrayList<FeesDetails>) : RecyclerView.
 
         holder.tvremarks.text = item.fees_type
 
-
+        if (position==0) {
+               if (item.month_abbr != null && item.month_abbr.isNotEmpty())
+               // holder.monthName.text = Utils.getMonthNamefromaDate(item.approve_date)
+               holder.monthName.text = item.month_abbr
+        }else
+            holder.monthName.visibility = View.GONE
     }
 
     override fun getItemCount(): Int = items.size

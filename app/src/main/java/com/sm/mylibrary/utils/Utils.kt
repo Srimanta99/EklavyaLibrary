@@ -230,6 +230,16 @@ object Utils {
     }
 
 
+
+    fun getMonthNamefromaDate(date : String) :String{
+
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val date = sdf.parse(date)
+        val monthName = SimpleDateFormat("MMMM", Locale.ENGLISH).format(date)
+        return monthName
+    }
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun daysBetweenTodayAnd(targetDateString: String): Long {
         // match your date format

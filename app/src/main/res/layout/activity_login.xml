@@ -11,8 +11,8 @@
     <ImageView
 
         android:id="@+id/img_top"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_120sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,9 +28,8 @@
         android:text="@string/app_name"
         android:layout_marginTop="@dimen/_15sdp"
         app:layout_constraintTop_toBottomOf="@+id/img_top"
-        android:layout_marginRight="@dimen/_20sdp"
         android:textSize="@dimen/_18sdp"
-        android:textColor="#917be3"
+        android:textColor="#488DCE"
         android:textStyle="bold"
 
         app:layout_constraintLeft_toLeftOf="parent"
@@ -48,6 +47,8 @@
         android:layout_marginLeft="20dp"
       android:layout_marginRight="20dp"
         android:textSize="@dimen/_11sdp"
+        app:boxStrokeColor="@color/border_default"
+
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -56,6 +57,7 @@
             android:layout_height="@dimen/_42sdp"
             android:hint="Enter user name"
             android:textSize="@dimen/_11sdp"
+            android:textColor="@color/broder_focused"
             android:inputType="textPersonName" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -73,6 +75,7 @@
         android:layout_marginRight="20dp"
         app:endIconMode="password_toggle"
         android:textSize="@dimen/_11sdp"
+        app:boxStrokeColor="@color/border_default"
 
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -82,6 +85,7 @@
             android:layout_height="@dimen/_42sdp"
             android:hint="Enter password"
             android:textSize="@dimen/_11sdp"
+            android:textColor="#636060"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -95,9 +99,10 @@
         android:layout_marginTop="@dimen/_7sdp"
         android:textSize="@dimen/_11sdp"
         android:text="Remember Me"
+        android:textColor="#474545"
         app:layout_constraintTop_toBottomOf="@id/til_password"></CheckBox>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_34sdp"
@@ -123,6 +128,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_login"
         android:layout_marginLeft="@dimen/_20sdp"
         android:textSize="@dimen/_11sdp"
+        android:textColor="#474545"
          android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -136,6 +142,10 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_login"
         android:layout_marginRight="@dimen/_20sdp"
         android:textSize="@dimen/_11sdp"
+        android:textColor="#474545"
+        app:layout_constraintLeft_toLeftOf="parent"
+android:background="@drawable/rectangle_red_with_white_broder"
+        android:padding="@dimen/_10sdp"
         app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
@@ -144,10 +154,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginBottom="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
         android:textSize="@dimen/_10sdp"
         android:text="ghg"
+        android:textColor="#474545"
         app:layout_constraintTop_toBottomOf="@id/txt_signup" >
 
     </TextView>

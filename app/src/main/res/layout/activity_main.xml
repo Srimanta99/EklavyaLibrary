@@ -206,7 +206,7 @@
                 />
         </LinearLayout>
 
-        <LinearLayout
+     <!--   <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
@@ -290,13 +290,13 @@
                 android:layout_marginLeft="@dimen/_17sdp"
                 android:onClick="@{() -> viewModel.onMenuClicked(4)}"
                 android:textColor="@color/white" />
-        </LinearLayout>
+        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:onClick="@{() -> viewModel.onMenuClicked(5)}"
+            android:onClick="@{() -> viewModel.onMenuClicked(2)}"
             android:orientation="horizontal">
 
             <ImageView
@@ -318,7 +318,7 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/_17sdp"
                 android:textColor="@color/white"
-                android:onClick="@{() -> viewModel.onMenuClicked(5)}"
+                android:onClick="@{() -> viewModel.onMenuClicked(2)}"
                  />
 
         </LinearLayout>
@@ -327,7 +327,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:onClick="@{() -> viewModel.onMenuClicked(6)}"
+                android:onClick="@{() -> viewModel.onMenuClicked(3)}"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -349,7 +349,7 @@
                     android:gravity="center_vertical"
                     android:layout_marginLeft="@dimen/_17sdp"
                     android:textColor="@color/white"
-                    android:onClick="@{() -> viewModel.onMenuClicked(6)}"
+                    android:onClick="@{() -> viewModel.onMenuClicked(3)}"
                     />
             </LinearLayout>
 
@@ -357,7 +357,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:onClick="@{() -> viewModel.onMenuClicked(7)}"
+                android:onClick="@{() -> viewModel.onMenuClicked(4)}"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -379,7 +379,7 @@
                     android:gravity="center_vertical"
                     android:layout_marginLeft="@dimen/_17sdp"
                     android:textColor="@color/white"
-                    android:onClick="@{() -> viewModel.onMenuClicked(7)}"
+                    android:onClick="@{() -> viewModel.onMenuClicked(4)}"
                     />
             </LinearLayout>
 
@@ -387,7 +387,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:onClick="@{() -> viewModel.onMenuClicked(8)}"
+            android:onClick="@{() -> viewModel.onMenuClicked(5)}"
             android:orientation="horizontal">
 
             <ImageView
@@ -409,7 +409,7 @@
                 android:gravity="center_vertical"
                 android:layout_marginLeft="@dimen/_17sdp"
                 android:textColor="@color/white"
-                android:onClick="@{() -> viewModel.onMenuClicked(8)}"
+                android:onClick="@{() -> viewModel.onMenuClicked(5)}"
                  />
         </LinearLayout>
 

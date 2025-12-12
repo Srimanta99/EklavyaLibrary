@@ -2,8 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue">#3033e6</color>
+    <color name="blue">#488DCE</color>
     <color name="red">#ff0000</color>
     <color name="text_color">#292b2e</color>
+    <color name="broder_focused">#292828</color>
+    <color name="border_default">#636060</color>
 
 </resources>

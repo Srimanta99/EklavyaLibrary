@@ -304,7 +304,10 @@ class HomeFragment : Fragment() {
         }
 
         fragmentHomeBinding?.tvStdId?.text = "STD ID:  " + loginResponse?.userDetail?.ecode
-        fragmentHomeBinding?.tvValidDate?.text =   Utils.changeDateFormat(loginResponse?.userDetail?.lastDate)
+        if (loginResponse?.userDetail?.validity!=null)
+           fragmentHomeBinding?.tvValidDate?.text =   Utils.changeDateFormat(loginResponse?.userDetail?.validity)
+        else
+            fragmentHomeBinding?.tvValidDate?.text = "Inactive"
 
         fragmentHomeBinding?.tvLocationStudent?.text = loginResponse?.userDetail?.libraryaddress
         fragmentHomeBinding?.tvEklavyaStudyCenter?.text = loginResponse?.userDetail?.libraryname

@@ -35,10 +35,14 @@ class ManageLeaveAdapter(private val items: List<LeaveData>) : RecyclerView.Adap
         holder.tvstartdate.text = Utils.changeDateFormat(item.fromdate)
         holder.tvenddate.text = Utils.changeDateFormat(item.todate)
         holder.tvStatus.text = item.status
-        holder.tvapprovedate.text = Utils.changeDateFormat(item.appoveddate)
+        if (item.appoveddate .equals("0000-00-00"))
+            holder.tvapprovedate.text = "Not approved"
+        else
+         holder.tvapprovedate.text = Utils.changeDateFormat(item.appoveddate)
+
        // holder.tvStatus.text = item.status
 
-        if (item.status.equals("Approved")){
+        if (item.status.equals("Approve")){
           holder.rrLeave.setBackgroundResource(R.drawable.green_rounded_corner_button_with_no_broder)
         }else if (item.status.equals("Pending")){
                 holder.rrLeave.setBackgroundResource(R.drawable.rounded_corner_button_with_no_broder)
