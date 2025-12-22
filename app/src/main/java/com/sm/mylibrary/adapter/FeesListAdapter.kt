@@ -48,12 +48,12 @@ class FeesListAdapter(private val items: ArrayList<FeesDetails>) : RecyclerView.
 
         holder.tvremarks.text = item.fees_type
 
-        if (position==0) {
+        //if (position==0) {
                if (item.month_abbr != null && item.month_abbr.isNotEmpty())
                // holder.monthName.text = Utils.getMonthNamefromaDate(item.approve_date)
                holder.monthName.text = item.month_abbr
-        }else
-            holder.monthName.visibility = View.GONE
+      //  }else
+           // holder.monthName.visibility = View.GONE
     }
 
     override fun getItemCount(): Int = items.size

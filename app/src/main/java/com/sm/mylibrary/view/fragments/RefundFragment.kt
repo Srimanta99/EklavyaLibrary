@@ -20,6 +20,7 @@ import com.sm.mylibrary.model.refund.FeesDetails
 import com.sm.mylibrary.model.refund.RefundDetail
 import com.sm.mylibrary.utils.Constants
 import com.sm.mylibrary.utils.SheardPreferenceViewModel
+import com.sm.mylibrary.utils.Utils
 import com.sm.mylibrary.view.QRCodeActivity
 import com.sm.mylibrary.viewmodel.FragmentRefundViewModel
 
@@ -103,6 +104,8 @@ class RefundFragment : Fragment() {
              if (fees_detail.size >0) {
                  fragmentRefundBinding?.llfees?.visibility = View.VISIBLE
                  fragmentRefundBinding?.tvnoDetails?.visibility = View.GONE
+                 fragmentRefundBinding?.tvFeetatement?.text = loginResponse?.userDetail?.approveDate?.let {
+                     Utils.getMonthNamefromaDate(it) } +" "+"Fees Statement"
 
                  fragmentRefundBinding?.feesDetails?.layoutManager = LinearLayoutManager(requireActivity())
                  fragmentRefundBinding?.feesDetails?.adapter = FeesListAdapter(fees_detail)

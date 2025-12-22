@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -122,12 +123,30 @@ class MainActivity : AppCompatActivity() {
         }
 
         activityMainBinding.tvDayPending.setOnClickListener {
+
             if (loginResponse?.userDetail?.validity!= null) {
+
                 val validtill = loginResponse?.userDetail?.validity
-                val days = validtill?.let { it1 -> Utils.daysBetweenTodayAnd(it1) }
-                //  val days = Utils.daysBetweenTodayAnd("2025-10-07")
-                //Toast.makeText(this, "Days Left $days", Toast.LENGTH_SHORT).show()
-                showPopup(days.toString())
+         /*       val date = LocalDate.parse(validtill)
+
+                val year = date.year
+                val month = date.monthValue   // 1–12
+                val day = date.dayOfMonth
+
+                val inputDate = LocalDate.of(year, month, day) // YYYY, MM, DD
+                val today = LocalDate.now()
+
+                if (inputDate.isAfter(today)) {*/
+                    val days = validtill?.let { it1 -> Utils.daysBetweenTodayAnd(it1) }
+                    //  val days = Utils.daysBetweenTodayAnd("2025-10-07")
+                    //Toast.makeText(this, "Days Left $days", Toast.LENGTH_SHORT).show()
+                    if (days!! > 0)
+                       showPopup(days.toString())
+                    else
+                        showPopupNagativeday(days.toString())
+              /*  }else
+                    showPopupofDeActivatedAccount("0")
+*/
             }else{
                 showPopupofDeActivatedAccount("0")
             }
@@ -235,11 +254,9 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
        // showuserDetails()
+        window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
         checkForUpdate()
     }
-
-
-
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -253,12 +270,13 @@ class MainActivity : AppCompatActivity() {
             showPopupofDeActivatedAccount("0")
         }else {
              val days =  Utils.daysBetweenTodayAnd(validtill)
+             activityMainBinding.tvDayPending.text = days.toString()
            // val days = Utils.daysBetweenTodayAnd("2025-10-07")
-            if (days >= 0) {
+            /*if (days >= 0) {
                 activityMainBinding.tvDayPending.text = days.toString()
             } else {
                 showPopupofDeActivatedAccount(days.toString())
-            }
+            }*/
         }
 
 
@@ -313,6 +331,28 @@ class MainActivity : AppCompatActivity() {
                 d.dismiss()
             }*/
           //  .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
+            .create()
+
+        imgcross.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+
+
+    private  fun showPopupNagativeday( days : String){
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.pop_up_days_left, null)
+        val tvMessage = dialogView.findViewById<TextView>(R.id.popupText)
+        val imgcross = dialogView.findViewById<ImageView>(R.id.img_cross)
+        tvMessage.text = " Your  account has been suspended/deactivated, Your account is expired $days days ago, Please Contact admin."
+        // Build dialog
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            /*.setPositiveButton("OK") { d, _ ->
+                d.dismiss()
+            }*/
+            //  .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
             .create()
 
         imgcross.setOnClickListener {

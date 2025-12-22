@@ -488,6 +488,7 @@
             android:textSize="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:paddingBottom="@dimen/_20sdp"
+            android:textColor="@color/broder_focused"
             app:layout_constraintTop_toBottomOf="@id/tv_login">
 
         </TextView>

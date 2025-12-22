@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="No Statement Found"
         android:textColor="@color/white"
-        android:visibility="gone"
+        android:visibility="visible"
         android:textStyle="bold"
   android:layout_marginTop="@dimen/_20sdp"
         android:gravity="center"></TextView>
